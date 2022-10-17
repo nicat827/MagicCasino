@@ -1,0 +1,234 @@
+
+
+.mines__container {
+    background-color: rgb(168, 91, 116, 0.3);
+    
+    min-width: 1000px;
+    max-height: 500px;
+    border-radius: 12px;
+    position: fixed;
+    left: 10px;
+    top: 95px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    margin: 8px;
+    
+}
+
+.disabled2  {
+    cursor: not-allowed !important;
+    background: linear-gradient(to right, rgb(124, 45, 119, 0.5), rgb(124, 45, 119, 0.5)) !important;
+}
+.disabled  {
+    cursor: default !important;
+    background-color: #A24B68 !important;
+}
+
+
+
+.mines__panel { 
+    max-height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+}
+
+.control__panel {
+    width: 270px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    flex-direction: row;
+    max-height: 100px;
+    max-width: 350px;
+}
+
+.bet__panel {
+    
+    max-height: 500px;
+    width: 400px;
+    margin-right: 15px;
+    font-size: 16px;
+    padding: 15px;
+    justify-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+.Max {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    
+}
+.span__mines {
+    color: white;
+    width: 230px;
+}
+
+.first.active {
+    background-color: white;
+    
+}
+
+
+.change__minesCount {
+    min-width: 30px;
+    min-height: 30px;
+    padding: 5px;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    background-color: rgb(168, 91, 116, 0.9);
+    border: 1px solid white;
+    transition: 1s;
+    margin: 2px;
+   
+}
+
+.error {
+    border: 1px solid red !important;
+}
+
+.change__minesCount:hover {
+    background-color: rgba(250, 246, 248, 0.4);
+    color: black;
+    transition: 1s;
+}
+.first  {
+    
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+
+
+.startGame__btn {
+    max-width: 350px;
+    width: 260px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    background: linear-gradient(to right, #7C2D77, #7C2D77);
+    outline: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: 2s;
+    color: white;
+    
+}
+
+
+.startGame__btn:hover {
+    background: linear-gradient(70deg,  #7C2D77, 70%, #e339d8);
+    transition: 2s;
+  
+    
+}
+
+.last {
+    
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 80px;
+}
+
+.mines__item {
+    border: 2px solid white;
+    border-radius: 4px;
+    background-color: #A24B68;
+    width: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    cursor: pointer;
+    margin: 3px;
+    max-width: 65px;
+    max-height: 65px;
+    transition: 0.5s;
+    outline: none;    
+}
+
+
+.bomb__svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mines__item.lose {
+    background-color: red;
+}
+.mines__item.disabled.lose {
+    background-color: red !important;
+}
+.mines__item.disabled.lose.opacity {
+    background-color: red !important;
+    opacity: 0.3;
+}
+.mines__item.win {
+    background-color: green;
+}
+.mines__item.win:hover {
+    background-color: green !important;
+}
+.mines__item.disabled.win {
+    background-color: green !important;
+}
+.mines__item.disabled.win.opacity {
+    background-color: #008000 !important;
+    color: white;
+    opacity: 0.3;
+}
+
+.mines__item:hover {
+    background-color: #7C2D77;
+    transition: 0.5s;
+}
+
+.step__div {
+    max-width: 250px;
+    max-height: 350px;
+    margin-left: 25px;
+    overflow-y: scroll;
+}
+
+.step__item {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 5px;
+    color:white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-left: 12px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    padding-right: 12px;
+    margin: 5px;
+}
+.step__div::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes my-animation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

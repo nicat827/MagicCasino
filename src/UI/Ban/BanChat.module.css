@@ -1,0 +1,42 @@
+.ban__div {
+    background-color: red;
+    color: white;
+    width: 250px;
+    border: 2px solid white;
+    height: 50px;
+    animation-name: banDiv;
+    right: 630px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    position: relative;
+    top: 100px;
+    animation-duration: 3s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+@keyframes banDiv {
+    0% {
+        opacity: 0.5;
+        
+    }
+    50% {
+        transform: translateX(60%);
+        display: block;
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-60%);
+        opacity: 0;
+    }
+    
+}

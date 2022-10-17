@@ -1,0 +1,606 @@
+import { makeAutoObservable } from "mobx";
+import AuthService from "../services/AuthService";
+import axios from "axios";
+import { API_URL } from "../http";
+import UserService from "../services/UserService";
+import VkService from "../services/VkService";
+import { AuthContext } from "../context";
+import { useContext } from "react";
+import ChatService from "../services/ChatService";
+import PromoService from "../services/PromoService";
+import BalanceService from "../services/BalanceService";
+import MinesService from "../services/MinesService";
+
+
+
+
+export default class Store {
+    
+    user = {};
+    isLoading = false;
+    isAuth = false;
+    isEmailError = false;
+    messagesMassive = []
+    send = false
+    userData = {}
+    photo = null
+    isAdmin = false
+    id = null
+    balance = 0
+    bannedUsers = []
+    error = false
+    mines = []
+    amountMines = null
+ 
+
+
+    constructor() {
+        makeAutoObservable(this)
+    }
+
+    setAuth(bool) {
+        this.isAuth = bool
+    }
+    setPhoto(photoUrl) {
+        this.photo = photoUrl
+    }
+    setError(bool) {
+        this.error = bool
+    }
+
+    setAmountMines(int) {
+        this.amountMines = int
+    }
+
+    setMines(massive) {
+        this.mines = massive
+    }
+
+    setBannedUsers(arr) {
+        this.bannedUsers = arr
+    }
+
+    setId(int) {
+        this.id = int
+    }
+
+    setBalance(int) {
+        this.balance = int
+    }
+
+    
+    setAdmin(bool) {
+        this.isAdmin = bool
+    }
+
+    setUserData(infoUser) {
+        this.userData = infoUser
+    }
+
+    setSend(bool) {
+        this.send = bool
+    }
+
+    setUser(user) {
+        this.user = user
+    }
+
+    setLoading(bool) {
+        this.isLoading = bool
+    }
+
+    setEmailError(bool) {
+        this.isEmailError = bool
+    }
+    setMessagesMassive(messages) {
+        this.messagesMassive = messages
+    }
+
+    async login(email, password) {
+            
+        try {
+            
+            const response = await AuthService.login(email, password)
+            console.log(response)
+            localStorage.setItem('token', response.data.accessToken)
+            this.setAuth(true)
+            this.setUser(response.data.user)
+            
+            return 'OK'
+            
+           
+            
+        }
+        catch (e) {
+            
+            console.log(e)
+            return e
+        }
+    }
+
+    async registrateVk(userData) {
+        try {
+            const response = await VkService.registrateVk(userData)
+            if (response) {
+                console.log(response);
+                this.setAuth(true)
+                
+            }
+            
+            
+            
+        }
+
+        catch (e) {
+            console.log(e)
+        }
+        
+
+    }
+
+    async authVk() {
+        this.setLoading(true)
+        
+       try {
+            console.log('log before')
+            const VK = window.VK;
+            VK.Auth.login(async (res) => {
+                if (res.session) {
+                    console.log(res)
+                    
+                    this.setId(res.session.user.setId)
+                    const isUser = await this.getUserFromDb(res.session.user.id)
+                    
+                    if (!isUser) {
+                        localStorage.setItem('sid', res.session.sid)
+                        
+                        const photo = await this.callVKApi(res.session.user.id, res.session.sid)
+                        console.log(photo)
+                        
+                        
+                        
+                        const photoUrl = photo.response.items[0].sizes.filter(el => el.height < 80)[0].url
+                        console.log(photoUrl)
+                        if (res.session.user.id === '308516627') {
+                           
+                            this.setAdmin(true)
+                        }
+                        else {
+                            this.setAdmin(false)
+                        }
+                        
+                        this.setUser({name:res.session.user.first_name, surname:res.session.user.last_name, photo:photoUrl})
+                        
+                        this.setUserData({id:res.session.user.id, href:res.session.user.href, name:res.session.user.first_name, surname:res.session.user.last_name, expire:res.session.expire,photo:photoUrl, isAdmin:this.isAdmin, balance:this.balance})
+                        this.registrateVk(this.userData)
+                        this.setId(res.session.user.id)
+                        return 'OK'
+                    } 
+                
+                    localStorage.setItem('sid', res.session.sid)
+                    this.setId(res.session.user.id)
+                    if (res.session.user.id === '308516627') {
+                        console.log('ff')
+                        this.setAdmin(true)
+                    }
+                    else {
+                        this.setAdmin(false)
+                    }
+                }
+            },4)
+            
+    } 
+
+        catch (e) {
+            console.log(e)
+        }
+
+        finally {
+            this.setLoading(false)
+        }
+        return 'OK'
+    }
+
+    async deposit(amount) {
+        try {
+            const res = await BalanceService.deposit(this.id, amount)
+            this.setBalance(res.data)
+        }
+        catch (e) {
+            console.log(e);
+        }
+        
+    }
+    async withdraw(amount) {
+        try {
+            const res = await BalanceService.withdraw(this.id, amount)
+            this.setBalance(res.data)
+        }
+        catch (e) {
+            
+            if (e.response.data.message === 'Недостаточно средств!') {
+                console.log('211')
+                this.setError(true)
+                setTimeout(() => this.setError(false), 2900)
+            }
+        }
+        
+    }
+
+    callVKApi = (id, token) => new Promise((resolve, reject) => {
+            const VK = window.VK;
+            console.log('ok')
+            
+           
+            try {
+                VK.Api.call('photos.get',
+            {   
+                owner_id: String(id),
+                album_id:'profile',
+                access_token: String(token),
+                rev:1,
+                count: 1,
+                v: 5.194
+            },
+            
+            (i) => {
+                
+                console.log(i)
+                resolve(i) 
+                    }
+                )
+            }
+
+            catch (e) {
+                
+                console.log(e);
+                reject(e)
+            }
+            
+            })
+            
+    
+    
+    
+
+
+
+    async logoutVk() {
+        this.setLoading(true)
+        try {
+           
+            const VK = window.VK;
+            VK.Auth.logout((res) => {
+                if (!res.session) {
+                    this.setAuth(false)
+                    this.setAdmin(false)
+                    this.setUser({})
+                    localStorage.removeItem('sid')
+                }
+            } )
+
+        
+           
+        }
+        catch (e) {
+            console.log(e)
+        }
+        
+        finally {
+            this.setLoading(false)
+        }
+
+     
+        
+
+        
+    } 
+
+
+    
+
+    async registration(email, password, messages) {
+        
+        try {
+            const response = await AuthService.registration(email, password, messages)
+            console.log(response);
+            localStorage.setItem('token', response.data.accessToken)
+            this.setAuth(true)
+            this.setUser(response.data.user)
+            return 'OK'
+            
+        }
+        catch (e) {
+            
+            console.log(e.response.data.message);
+            return e.response.data.message;
+        }
+    }
+
+    async logout() {
+        try {
+            const response = await AuthService.logout();
+            localStorage.removeItem('token')
+            this.setAuth(false)
+            this.setUser({})
+        }
+        catch (e) {
+            
+            console.log(e);
+        }
+    }
+    
+
+    async checkAuth() {
+
+        this.setLoading(true)
+        try {
+            const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true})
+            console.log(response);
+            localStorage.setItem('token', response.data.accessToken)
+            this.setAuth(true)
+            
+            this.setUser(response.data.user)
+            
+        } 
+        
+        catch (error) {
+            
+            localStorage.removeItem('token')
+            
+        }
+        
+        finally {
+            this.setLoading(false)
+        }
+
+    }
+
+    async checkAuthVk() {
+        this.setLoading(true)
+        try {
+            const VK = window.VK;
+            
+            await VK.Auth.getLoginStatus(async (res) => {
+            
+                if (res.session) {
+                    localStorage.setItem('sid', res.session.sid)
+                    if (res.session.mid === '308516627') {
+                        this.setAdmin(true)
+                        
+                    }
+                    else {
+                        this.setAdmin(false) 
+                    }
+                    this.setId(res.session.mid)      
+                    this.getUserFromDb(res.session.mid)
+                    
+                    
+                   
+                    
+                     
+                }
+                else {
+                    localStorage.removeItem('sid')
+                }
+            })
+        }
+
+        catch (e) {
+            console.log(e)
+        }
+        finally {
+            this.setLoading(false)
+        }
+    }
+    async sendMessage(email, message, name, surname, photo) {
+        try {
+            if (localStorage.getItem('token')) {
+                const response = await ChatService.sendMessage(email, message, null, null)
+                    if(response){
+                    this.setSend(true)
+            }}
+
+            else if (localStorage.getItem('sid')) {
+                console.log('fef')
+                const response = await ChatService.sendMessage(null, message, name, surname, photo, this.id)
+                    if(response){
+                        this.setSend(true)
+            }}  
+        } 
+        catch (error) {
+            console.log(error);
+            if (error.response.data.message) {
+                return error.response.data.message;
+            }
+        }
+    }
+    async getMessage() {
+        try {
+            const res = await ChatService.getMessage()
+            this.setMessagesMassive(res.data) 
+        } 
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    async createPromo(promoName, count, amount, type) {
+        try {
+            const res = await PromoService.createPromo(promoName, count, amount, type)
+            return res
+        }
+        
+        catch (e) {
+            console.log(e);
+        }
+    }   
+
+    async changeNickname(newNickname) {
+        try {
+            if (localStorage.getItem('sid')) {
+                const res = await VkService.changeNickname(this.id, newNickname)
+                if (res) {
+                    this.setUser({name: res.data[0].name, surname: res.data[0].surname, photo: res.data[0].photo})
+                }
+
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    async banUser(userId, time) {
+        try {
+            
+            const res = await ChatService.banUser(userId, this.user.name, time)
+            console.log(res)
+            if (res.status === 200) {
+                
+                return res.data;
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    async getUserFromDb(id) {
+        try {
+            const res = await VkService.getUserDto(id)
+            console.log(res)
+            
+            if (res) {
+                this.setUser({name:res.data.name, surname:res.data.surname, photo:res.data.photo})
+                this.setBalance(res.data.balance)
+                this.setAuth(true)
+                
+                return res;
+            }
+            
+            return res;
+        }
+
+        catch (e) {
+            
+        }
+    }
+
+    async startGameMines(amount, randomNums) {
+        try {
+            if (this.balance < amount) {
+                this.setError(true)
+                setTimeout(() => this.setError(false), 2900)
+            }
+            else {
+                const res = await MinesService.startGame(amount, randomNums, this.balance, this.id)
+                this.setBalance(res.data)
+                return res.data;
+            }
+            
+
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    async endGameMines(win) {
+        try {
+           const res = await MinesService.endGame(win, this.id)
+
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    async checkActiveGame() {
+        try {
+            console.log(this.id, 'fef');
+            const res = await MinesService.check(this.id)
+            
+            if (res.data) {
+                return res.data
+            }
+        }
+
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    async pressMine(position) {
+        try {
+            const res = await MinesService.press(position, this.id)
+            return res.data.click;
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    async usePromo(promo) {
+        try {
+          
+            const res = await PromoService.activatePromo(promo, this.id);
+            this.setBalance(res.data.balance)
+            return res.data.info;
+        } 
+        catch (error) {
+            console.log(error)
+            if (error.response.data) {
+                return error.response.data.errors;
+            }
+           
+        }
+    }
+
+    async getBannedUsers(type) {
+        try {
+            const res = await VkService.getBannedUsers(type)
+            console.log(res)
+            this.setBannedUsers(res.data)
+            
+        } 
+        catch (e) {
+            console.log(e)
+            
+        }
+    }
+
+    async unBanUser(id) {
+        try {
+           const res = await ChatService.unBanUser(id) 
+           console.log(res)
+        }
+        
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getPromoFromDb(type) {
+        try {
+            
+            const res = await PromoService.getPromoFromDb(type);
+            return res.data;
+           
+        }
+
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+
+    async getUsers() {
+        try {
+            const response = await UserService.fetchUsers();
+            console.log(response.data);
+            
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}

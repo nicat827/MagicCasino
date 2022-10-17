@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "email": "nici.mecidov@list.ru",
+      "password": "$2a$10$jNqiGn6rnR/Td5iLAPs4uOW2KqiBUirYgoUbZQ144QW.zDoLkdJ7m",
+      "id": 1
+    },
+    {
+      "email": "nici.me2cidov@list.ru",
+      "password": "$2a$10$57SW90nZNRHidvWtcarrWeRtbFGCXgfTfqGwfjiPAr5WtRCXiYU/y",
+      "id": 2
+    },
+    {
+      "email": "nfewfewf@mail.ru",
+      "password": "$2a$10$H3MBSMkCDlFpMThjUM/CMOUKlbKYje9MveGq6/7Ma4kGP.bqftjD6",
+      "id": 3
+    },
+    {
+      "email": "nici.me2idov@list.ru",
+      "password": "$2a$10$x3dSy0qpdLiDP.peaueUdOQqIDm.TnQRzr/zYulqvYb58EWPtw1S6",
+      "id": 4
+    },
+    {
+      "email": "nici.midov@list.ru",
+      "password": "$2a$10$V0Ho4Zb0aPgreUdLOSYs.OXQkagoUbJdYZWD8NIPjH15I3li2/Xwu",
+      "id": 5
+    },
+    {
+      "email": "nic3midov@list.ru",
+      "password": "$2a$10$39//r1.FrNyK3iDRfmL3Ge43Sx3b2ghzuZAyCvQhW7svRl5gFzrhW",
+      "id": 6
+    },
+    {
+      "email": "nqer@mail.ru",
+      "password": "$2a$10$h6eqRKrDrp2U3RSGvHCOX.mIgmbUbJBCend17F8QgI2YDIPD7ms7y",
+      "id": 7
+    },
+    {
+      "email": "nici.mcidov@list.ru",
+      "password": "$2a$10$3s7XLL/fuzuBDpCYNKJhDOZlQYwaRTCUqomYzUhSRjfQIGh8Q1Pyy",
+      "id": 8
+    },
+    {
+      "email": "wef@mail.ru",
+      "password": "$2a$10$MroQLKQXKsjmgy3C3y74SOwR4IDRUZkOUOvwYnBWt7rwffYkIBJ9y",
+      "id": 9
+    },
+    {
+      "email": "ici.me2cidov@list.ru",
+      "password": "$2a$10$lpu2/VMwRaCNascarzBt1eJJM0P7HnJcYBY2cxQY3eTF85RM/EO0i",
+      "id": 10
+    },
+    {
+      "email": "iwef@mail.ru",
+      "password": "$2a$10$2xGDYtukkEsaKKrmYO8FWO3qVl7xjjmzCaaIBzZWdONgeYMUbvu7.",
+      "id": 11
+    },
+    {
+      "email": "cidov@list.ru",
+      "password": "$2a$10$eAhjyQtlDfyVxPrhmdeJ4.aLflczNcy94Ve1JFJZ89DxVqo2u3iem",
+      "id": 12
+    },
+    {
+      "email": "few@mail.ru",
+      "password": "$2a$10$7HTjKGj1n5Gac4I0jjvNuuchczDwkl9ZXVH/ksH.G.D.dI8NVon/O",
+      "id": 13
+    },
+    {
+      "email": "iciwef@mail.ru",
+      "password": "$2a$10$lNK82Hp6EEATYM06gHjYC.sRvzzlyx7Cnzcx6HW2yFuSZKYTYuyYG",
+      "id": 14
+    },
+    {
+      "email": "ici.wefwef@mail.ru",
+      "password": "$2a$10$GbvOrZL1VL6IwN5h93vy1.Sp6HgGBNntXoNdCiTRMnaYbOAn3S5vS",
+      "id": 15
+    },
+    {
+      "email": "wefwef@mail.ru",
+      "password": "$2a$10$joZu97jgZ952n.lZE5ari.vtJTX1t5DMP/jvYSYFya6E/X3YnLvOu",
+      "id": 16
+    },
+    {
+      "email": "wwef@mai.ru",
+      "password": "$2a$10$Ai0E2RbOavGbCPkbBg4VOuc67aItNNrbDWiaQP63KLnBATLjlidOO",
+      "nickname": "ewfwf",
+      "id": 17
+    },
+    {
+      "email": "wweffef@mai.ru",
+      "password": "$2a$10$MUJXns6vRUIuXjoaTuvbSO4I2.bsmzHHSpVTSHypfRq4ZMfxVERx2",
+      "nickname": "цуаку",
+      "id": 18
+    },
+    {
+      "email": "wsxwef@mai.ru",
+      "password": "$2a$10$cOhdPqJsh/IrQjNm9QpmRuAKi0gVuvG8tHcRjQqMAMWba8JJeoog.",
+      "nickname": "scsc",
+      "isAuthorised": true,
+      "id": 19
+    },
+    {
+      "email": "nici@mail.ru",
+      "password": "$2a$10$eCpRTdmsjSB5dAX5syrZseyJGcSpNojFciteTR1tMGb24rA0wrQSO",
+      "id": 20
+    }
+  ]
+}
