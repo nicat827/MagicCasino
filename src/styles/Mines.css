@@ -2,9 +2,10 @@
 
 .mines__container {
     background-color: rgb(168, 91, 116, 0.3);
-    
+    justify-content: center;
+    align-items: center;
     min-width: 1000px;
-    max-height: 500px;
+    max-height: 520px;
     border-radius: 12px;
     position: fixed;
     left: 10px;
@@ -28,7 +29,8 @@
 
 
 .mines__panel { 
-    max-height: 500px;
+    max-height: 520px;
+   
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -46,6 +48,51 @@
     max-width: 350px;
 }
 
+.counter__mines {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 200px;
+    justify-content: space-between;
+    align-items: center;
+   
+    padding: 10px;
+
+}
+
+.bomb__container {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    fill: white;
+    background-color: red;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid white;
+    padding: 5px;
+    width: 65px;
+    height: 65px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;    
+    font-size: 18px;
+}
+.crystall__container{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    
+    justify-content: center;
+    flex-direction: column;
+    background-color: green;
+    border: 2px solid white;
+    padding: 5px;
+    width: 65px;
+    height: 65px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;    
+    font-size: 18px;
+}
+
 .bet__panel {
     
     max-height: 500px;
@@ -54,6 +101,7 @@
     font-size: 16px;
     padding: 15px;
     justify-content: center;
+    align-items: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -160,7 +208,6 @@ input::-webkit-inner-spin-button {
     outline: none;    
 }
 
-
 .bomb__svg {
     display: flex;
     justify-content: center;
@@ -198,10 +245,12 @@ input::-webkit-inner-spin-button {
 }
 
 .step__div {
-    max-width: 250px;
-    max-height: 350px;
-    margin-left: 25px;
+    max-width: 130px;
+    max-height: 320px;
+    width: 120px;
+    
     overflow-y: scroll;
+
 }
 
 .step__item {
@@ -214,12 +263,44 @@ input::-webkit-inner-spin-button {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding-left: 12px;
     width: 100px;
+    max-width: 100px;
     justify-content: center;
     align-items: center;
     font-size: 18px;
     padding-right: 12px;
     margin: 5px;
 }
+
+.arrow-up {
+    fill: white;
+    cursor: pointer;
+}
+
+
+
+
+.step__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.step__item.active {
+    background-color: #7C2D77;
+    color: white;
+
+}
+.step__item.win {
+    background-color: green;
+    
+
+}
+.step__item.lose {
+    background-color: red;
+
+}
+
 .step__div::-webkit-scrollbar {
     display: none;
 }

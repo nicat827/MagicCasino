@@ -4,27 +4,40 @@ import '../styles/Jackpot.css'
 const Jackpot = () => {
     
     
-    
+    const prompt = () => {
+        const arr = []
+        let i = 0
+        while (i < 5) {
+            const res = window.prompt('Введи число:')
+            arr.push(Number(res))
+            i ++
+            
+        }
+        let sum = 0
+        arr.forEach((el) => {
+            sum = el + sum
+            return sum
+        })
+        if (100 - Number(sum) < 100) {
+            console.log('Меньше 100')
+        }
+        else {
+            console.log('Больше 100')
+        }
+        
+        
+        //if (100 - sum)
+        //console.log()
+    }
     
     return (
         
         <div className='container__flex'>
-            <div className='flex item1'>
-                Картинка 1
+            <div className='flex item1' onClick={prompt}>
+                промпт
                 <div className='div text1'>text</div>
             </div>
-            <div className='flex item2'>
-                Картинка 2
-                <div className='div text2'>text</div>
-            </div>
-            <div className='flex item3'>
-                Картинка 3
-                <div className='div text3'></div>
-            </div>
-            <div className='flex item4'>
-                Картинка 4
-                <div className='div text4'></div>
-            </div>
+            
         </div>
             
             

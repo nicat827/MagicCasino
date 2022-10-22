@@ -487,16 +487,24 @@ export default class Store {
         }
     }
 
-    async startGameMines(amount, randomNums) {
+    async startGameMines(amount, countMines) {
         try {
             if (this.balance < amount) {
                 this.setError(true)
                 setTimeout(() => this.setError(false), 2900)
             }
             else {
-                const res = await MinesService.startGame(amount, randomNums, this.balance, this.id)
-                this.setBalance(res.data)
-                return res.data;
+                try {
+                    const res = await MinesService.startGame(amount, countMines, this.id)
+                    console.log(res)
+                    
+                    this.setBalance(res.data.balance)
+                    return res.data;
+                }
+                catch (e) {
+                    console.log(e)
+                }
+                
             }
             
 
@@ -508,6 +516,7 @@ export default class Store {
     async endGameMines(win) {
         try {
            const res = await MinesService.endGame(win, this.id)
+           return res.data
 
         }
         catch (e) {
@@ -533,7 +542,7 @@ export default class Store {
     async pressMine(position) {
         try {
             const res = await MinesService.press(position, this.id)
-            return res.data.click;
+            return res.data;
         }
         catch (e) {
             console.log(e);

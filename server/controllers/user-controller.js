@@ -90,8 +90,8 @@ class UserController {
 
     async minesStart(req, res, next) {
         try {
-            const {amount, randomNums, balance, id} = req.body;
-            const response = await minesService.start(amount, randomNums, balance, id)
+            const {amount, countMines, id} = req.body;
+            const response = await minesService.start(amount, countMines, id)
             return res.json(response)
 
         }
