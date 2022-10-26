@@ -9,6 +9,7 @@
     justify-content: center;
     height: 100%;
    
+   
     
     
     
@@ -22,10 +23,10 @@
     width: 100%;
     background-image: url('../icons/ethical-sapphire-cheetah.png');
     height: 100%;
-    z-index: -2;
+    z-index: -3;
     display: flex;
     justify-content: center;
-    
+    align-items: center !important;
     position: fixed;
     top: 60px;
    

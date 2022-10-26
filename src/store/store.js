@@ -31,6 +31,7 @@ export default class Store {
     error = false
     mines = []
     amountMines = null
+    minesHistory = []
  
 
 
@@ -46,6 +47,10 @@ export default class Store {
     }
     setError(bool) {
         this.error = bool
+    }
+
+    setMinesHistory(obj) {
+        this.minesHistory = obj
     }
 
     setAmountMines(int) {
@@ -466,6 +471,17 @@ export default class Store {
         }
     }
 
+    async getGameMines(id) {
+        try {
+            const res = await MinesService.getGame(id)
+            return res.data;
+        } 
+        
+        catch (error) {
+            console.log(error)
+        }
+    }
+
     async getUserFromDb(id) {
         try {
             const res = await VkService.getUserDto(id)
@@ -473,9 +489,11 @@ export default class Store {
             
             if (res) {
                 this.setUser({name:res.data.name, surname:res.data.surname, photo:res.data.photo})
-                this.setBalance(res.data.balance)
-                this.setAuth(true)
+                this.setBalance(res.data.balance.toFixed(2))
+                const lastGames = res.data.mines.slice(res.data.mines.length - 10).reverse()
                 
+                this.setMinesHistory(lastGames)
+                this.setAuth(true)
                 return res;
             }
             
@@ -515,7 +533,9 @@ export default class Store {
     }
     async endGameMines(win) {
         try {
-           const res = await MinesService.endGame(win, this.id)
+           const res = await MinesService.endGame(Number(win), this.id)
+           console.log(res)
+           this.setBalance(res.data.balance)
            return res.data
 
         }

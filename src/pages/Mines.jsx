@@ -23,13 +23,14 @@ const Mines = () => {
     const [win, setWin] = useState(0)
     const [gameEnded, setGameEnded] = useState(false)
     const [stepMassive, setStepMassive] = useState([])
-    const [wait, setWait] = useState(false)
+    const [wait, setWait] = useState([])
     const [winsX, setWinsX] = useState([])
     const stepDiv = useRef(null)
 
-    useEffect(() => console.log(clickedCells), [clickedCells])
+    
     useEffect(() => {
             if (store.id) {
+                setWait(true)
                const res = store.checkActiveGame() 
                 if (res) {
                     res.then((res) => {
@@ -39,6 +40,7 @@ const Mines = () => {
                                 setGameStarted(true)
                                 setWin(res.amount)
                                 setClickedCells(res.click)
+                                setWait(false)
                             }
                         }
                         }   
@@ -68,7 +70,11 @@ const Mines = () => {
             amount = 1
             setAmountGame(1)
         }
-     
+        stepDiv.current.scrollTo({
+            top:0,
+            behavior: 'smooth'
+        })
+        setWait(true)
         const res = await store.startGameMines(amount, countMines)
         
         if (res) {
@@ -76,6 +82,7 @@ const Mines = () => {
             setStatus(res.status)
             setWin(res.amount)
             setGameStarted(true)
+            setWait(false)
         }
     }
 
@@ -86,7 +93,7 @@ const Mines = () => {
             
             
             const res = await store.endGameMines(win)
-            console.log(res)
+            
             if (res) {
                 if (res.game) {
                     setGameStarted(false)
@@ -110,8 +117,9 @@ const Mines = () => {
 
     const pressMine = async (position) => {
         setWait(true)
+        
         const res = await store.pressMine(position)
-        console.log(res)
+        
         if (res) {
             if (res.status ==='lose') {
                 setGameEnded(true)
@@ -126,7 +134,14 @@ const Mines = () => {
 
     
 
-    const winsXMassive = useMemo(() => {
+     useMemo(() => {
+        if (clickedCells.length === 4 || clickedCells.length === 8 || clickedCells.length===12 || clickedCells.length ===16 || clickedCells.length ===20) {
+            let scrollPosition = stepDiv.current.scrollTop
+            stepDiv.current.scrollTo({
+                        top: scrollPosition+317,
+                        behavior: 'smooth'
+                })
+        }
         
         let i = 0
         let copy = []
@@ -145,14 +160,23 @@ const Mines = () => {
         if (!gameStarted) {
             setStepMassive(copy) 
         }
+
+        if (gameStarted) {
+            stepMassive.map((el) => {
+                if (clickedCells.length === el.i+1) {
+                    setWin(el.canTake)
+                }
+            })
+        }
         
-        console.log(copy)  
+        
+       
         return copy
     }, [minesCount, amountGame, clickedCells, gameStarted])
     
     return (
         
-            <div className='mines__container' style={hiddenChat ? {width:'1200px', transitionDuration:'2s'} : {width:'1000px', transitionDuration:'2s'}}>
+            <div className='mines__container' style={hiddenChat ? {width:'1200px', transitionDuration:'1s'} : {width:'1000px', transitionDuration:'1s'}}>
                 <div className='counter__mines'>
                     <div className='bomb__container'>
                         <h3 >{minesCount}</h3>
@@ -208,9 +232,9 @@ const Mines = () => {
                     </div>
                     {gameStarted 
                     ?
-                    <button className={store.error  || !win  ? 'startGame__btn disabled2' : 'startGame__btn' } onClick={() => {
+                    <button className={store.error  || clickedCells.length===0 || !gameStarted ? 'startGame__btn disabled2' : 'startGame__btn' } onClick={() => {
                             endGame(win)
-                    }}  disabled={store.error  || !win  ? true : false}>Забрать {win}</button>
+                    }}  disabled={store.error  || clickedCells.length===0 || !gameStarted ? true : false}>Забрать {win}</button>
                     :
                     <button className={store.isAuth  && !error ? 'startGame__btn' : 'startGame__btn disabled2'}  onClick={() => startGameMines(amountGame, minesCount)} disabled={store.error || !store.isAuth || error ? true : false}>Начать игру</button>
                 }
@@ -219,8 +243,8 @@ const Mines = () => {
 
                 </div>
                 <div className='mines__panel'>
-                    <button disabled={gameStarted && store.isAuth ? false : true} className={
-                gameStarted && store.isAuth 
+                    <button disabled={gameStarted && store.isAuth && !wait ? false : true} className={
+                gameStarted && store.isAuth && !wait
                     ? clickedCells.includes(1) && !gameEnded
                         
                         ? status !== 'lose'
@@ -229,9 +253,9 @@ const Mines = () => {
                         : 'mines__item'
 
                             
-                        : gameEnded
+                        : gameEnded || !wait
                             ? mines.includes(1)
-                                ? clickedCells.includes(1)
+                                ? clickedCells.includes(1) 
                                     ? 'mines__item disabled lose'
                                     : 'mines__item disabled lose opacity'
                             : clickedCells.includes(1)
@@ -1429,7 +1453,10 @@ const Mines = () => {
             <div className='step__container'>
                 <svg className='arrow-up' onClick={() => {
                     let scrollPosition = stepDiv.current.scrollTop
-                    stepDiv.current.scroll(scrollPosition, scrollPosition-300)
+                    stepDiv.current.scrollTo({
+                        top: scrollPosition-315,
+                        behavior: 'smooth'
+                })
                 }} xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M11.958 25.625 10 23.667l10-10 10 9.958-1.958 1.958-8.042-8Z"/></svg>
                 <div className='step__div' ref={stepDiv}>
            
@@ -1445,7 +1472,10 @@ const Mines = () => {
                 <svg onClick={() => {
                     
                     let scrollPosition = stepDiv.current.scrollTop
-                    stepDiv.current.scroll(scrollPosition, scrollPosition+300)
+                    stepDiv.current.scrollTo({
+                        top: scrollPosition+317,
+                        behavior: 'smooth'
+                })
                 }} className='arrow-up' xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="m20 25.625-10-10 1.958-1.958L20 21.708l8.042-8.041 1.958 2Z"/></svg>
                 
                 

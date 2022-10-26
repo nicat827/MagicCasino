@@ -101,7 +101,7 @@ class UserService {
         }
         user.balance = Number(amount) + Number(user.balance);
         await user.save()
-        return user.balance;
+        return user.balance.toFixed(2);
     }
     async withdraw(id, amount) {
         const user = await VkModel.findOne({id})
@@ -114,7 +114,7 @@ class UserService {
         }
         user.balance = Number(user.balance) - Number(amount);
         await user.save()
-        return user.balance;
+        return user.balance.toFixed(2);
     }
 
     async refresh(refreshToken) {
@@ -293,6 +293,7 @@ class UserService {
 
     async getUserVk(id) {
         const user = await VkModel.findOne({id});
+        
         if (user) {   
             return user
         }

@@ -14,8 +14,11 @@
     display: flex;
     flex-direction: row;
     margin: 8px;
+    user-select: none;
     
 }
+
+
 
 .disabled2  {
     cursor: not-allowed !important;
@@ -92,6 +95,8 @@
     align-items: center;    
     font-size: 18px;
 }
+
+
 
 .bet__panel {
     
@@ -265,6 +270,7 @@ input::-webkit-inner-spin-button {
     width: 100px;
     max-width: 100px;
     justify-content: center;
+    user-select: none;
     align-items: center;
     font-size: 18px;
     padding-right: 12px;
@@ -273,7 +279,7 @@ input::-webkit-inner-spin-button {
 
 .arrow-up {
     fill: white;
-    cursor: pointer;
+    cursor: default;
 }
 
 

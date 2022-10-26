@@ -6,6 +6,7 @@
     height: 60px;
     position: fixed;
     display: flex;
+    z-index: -3;
     
 }
 

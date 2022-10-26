@@ -122,6 +122,18 @@ class UserController {
         }
     }
 
+
+    async minesGet(req,res,next) {
+        try {
+            const {id} = req.body;
+            const game = await minesService.get(id)
+            return res.json(game)
+        }
+        catch(e) {
+            next(e)
+        }
+    }
+
     async minesEnd(req, res, next) {
         try {
             const {win, id} = req.body;
@@ -267,6 +279,7 @@ class UserController {
             next(e)
         }
     }
+
 
     async getUserVk(req, res, next) {
         try {

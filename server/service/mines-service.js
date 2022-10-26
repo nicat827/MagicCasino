@@ -34,7 +34,7 @@ class MinesService {
         user.balance = user.balance - amount
         await user.save();
         const returnValue = {
-            balance: user.balance,
+            balance: user.balance.toFixed(2),
             status: createGame.status,
             click: createGame.click,
             amount: createGame.amount
@@ -63,6 +63,7 @@ class MinesService {
 
     async click(position, id) {
         const game = await MinesModel.findOne({id, status:'active'})
+        const user = await VkModel.findOne({id})
         if (!game) {
             throw ApiError.BadRequest('Сессия не найдена!')
         }
@@ -71,6 +72,8 @@ class MinesService {
             game.status = 'lose';
             game.win = 0
             game.click.push(position)
+            user.mines.push({id:game._id, amount:game.amount, status:game.status})
+            await user.save()
             await game.save();
             return game;
 
@@ -91,6 +94,16 @@ class MinesService {
         
     }
 
+    async get(id) {
+        
+        const game = await MinesModel.findOne({_id:id})
+        if (!game) {
+            throw ApiError.BadRequest('Игра не найдена!')
+        }
+        
+        return game;
+    }
+
     async end(win, id) {
         const user = await VkModel.findOne({id})
         const game = await MinesModel.findOne({id, status:'active'})
@@ -102,23 +115,27 @@ class MinesService {
         if (!user) {
             throw new ApiError.BadRequest('Пользователь не существует!')
         }
-        user.mines.push(game._id)
+       
         
         
         console.log(win)
         
         if (win > 0) {
             game.status = 'win'
-            
-            user.balance += win
+            game.win = win
+            user.balance+= win
+            user.mines.push({id:game._id, amount:game.amount, status:game.status, win: game.win})
+        
             await user.save()
             await game.save()
             const returnValue = {
-                balance : user.balance,
+                balance : user.balance.toFixed(2),
                 game
             } 
             return returnValue;
         }
+
+        
     }
 }
 

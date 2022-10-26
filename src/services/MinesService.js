@@ -15,4 +15,7 @@ export default class MinesService  {
     static async press(position, id) {
         return axios.post("http://localhost:5000/api/mines/press", {position, id})
     }    
+    static async getGame(id) {
+        return axios.post("http://localhost:5000/api/mines/get", {id})
+    }    
 }

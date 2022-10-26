@@ -49,8 +49,9 @@ const Layout = () => {
                 )
             }
              
-            <Chat/>
+            
             <div className='App'>
+                <Chat/>
                 <Outlet/>
             </div>    
         </>

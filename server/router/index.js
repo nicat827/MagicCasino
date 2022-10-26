@@ -19,6 +19,7 @@ router.post('/logout', userController.logout);
 router.post('/logout/vk', userController.logoutVk);
 router.post('/getUser/vk', userController.getUserVk);
 router.post('/mines/start', userController.minesStart);
+router.post('/mines/get', userController.minesGet);
 router.post('/mines/end', userController.minesEnd);
 router.post('/mines/check', userController.minesCheck);
 router.post('/mines/press', userController.minesPress);
