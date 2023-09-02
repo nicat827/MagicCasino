@@ -17,9 +17,12 @@ const CreatePromo = ({visible, setVisible}) => {
     const createPromo = async (e) => {
         e.preventDefault();
         const response = await store.createPromo(promoName, count, amount, typePromo)
-        if (response.status === 200) {
-            setVisible(false)
+        if (response) {
+            if (response.status === 200) {
+                setVisible(false)
+            }
         }
+        
         
     }
 

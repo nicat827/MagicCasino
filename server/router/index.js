@@ -23,6 +23,9 @@ router.post('/mines/get', userController.minesGet);
 router.post('/mines/end', userController.minesEnd);
 router.post('/mines/check', userController.minesCheck);
 router.post('/mines/press', userController.minesPress);
+router.post('/jackpot/start', userController.jackpotStart)
+router.post('/jackpot/bet', userController.jackpotBet)
+router.get('/jackpot/check', userController.checkGame)
 router.post('/balance/deposit', userController.deposit);
 router.post('/balance/withdraw', userController.withdraw);
 router.post('/promo/create', userController.createPromo);
@@ -33,5 +36,6 @@ router.post('/getBannedUsers/vk', userController.getBannedUsers);
 router.post('/promo/get', userController.getPromoFromDb);
 router.get('/chat/getMessage', userController.getMessage);
 router.get('/users', authMiddleware,  userController.getUsers);
+
 
 module.exports = router;

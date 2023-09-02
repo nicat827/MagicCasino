@@ -1,79 +1,475 @@
 
 
-.mines__container {
-    background-color: rgb(168, 91, 116, 0.3);
+
+@media (max-width: 1024px) {
+
+    .bet__panel {
+    
+        max-height: 500px;
+        width: 100%;
+        margin-right: 15px;
+        font-size: 16px;
+        padding: 15px;
+        transition: 0.5s all;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .control__panel {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100px;
+        flex-direction: row;
+        max-height: 100px;
+        
+    }
+
+    .mines__item {
+        border: none;
+        border-radius: 4px;
+        background-color: rgb(253, 186, 3);
+        width: 11.3vw;
+        max-width: 65px;
+        max-height: 65px;
+        transition: 0.4s all;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 11.3vw;
+        cursor: pointer;
+        margin: 3px;
+        outline: none;    
+    }
+
+   
+
+    .step__container {
+        width: 80%;
+        min-height: 100px;
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+    }
+
+    .step__div {
+        max-width: 100%;
+        max-height: 100px;
+        width: 90%;
+        display: flex;
+        overflow-y: scroll;
+    }
+    .mines__panel { 
+        
+        width: 67vw;
+        max-width: 423px;
+        max-height: 360px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        
+        
+    }
+
+    .startGame__btn {
+        
+        width: 60vw;
+        height: 10vw;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 15px;
+        border: none;
+        font-size: 16px;
+        background: linear-gradient(to right, rgb(253, 186, 3), rgb(253, 186, 3));
+        outline: none;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        transition: 2s;
+        color: black;
+        
+    }
+    
+    
+    .startGame__btn:hover {
+        background: linear-gradient(115deg, rgba(253,186,3,1) 40%, rgba(254,90,2,1) 78%, rgba(255,146,2,1) 100%);
+        transition: 2s;
+      
+        
+    }
+
+    .change__minesCount {
+        max-width: 50px;
+        max-height: 50px;
+        padding: 5px;
+        height: 10vw;
+        width: 10vw;
+        cursor: pointer;
+        outline: none;
+        color: white;
+        background-color: rgb(253, 186, 3, 0.4);
+        border: none;
+        transition: 1s;
+        margin: 2px;
+       
+    }
+
+  
+
+    .mines__container {
+        width: 80vw;
+        margin: 15px;
+        margin-top: 100px;
+        border-radius: 8px;
+        min-height: 700px;
+        background-color: rgba(40, 36, 36, 0.8);
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: -7px 31px 59px -12px rgba(253,186,3,0.79);
+        -webkit-box-shadow: -7px 31px 59px -12px rgba(253,186,3,0.79);
+        -moz-box-shadow: -7px 31px 59px -12px rgba(253,186,3,0.79);
+        
+        display: flex;
+    }
+
+    .step__item.active {
+        box-shadow: 1px 1px 23px 6px rgba(192,189,189,0.56) inset;
+    -webkit-box-shadow: 1px 1px 23px 6px rgba(192,189,189,0.56) inset;
+    -moz-box-shadow: 1px 1px 23px 6px rgba(192,189,189,0.56) inset;
+        color: white;
+        margin: 5px;
+    
+    }
+    .step__item.win {
+        box-shadow: 1px 1px 23px 6px rgba(5,252,0,0.56) inset;
+    -webkit-box-shadow: 1px 1px 23px 6px rgba(5,252,0,0.56) inset;
+    -moz-box-shadow: 1px 1px 23px 6px rgba(5,252,0,0.56) inset;
+    border: none;
+        
+    
+    }
+    .step__item.lose {
+        box-shadow: 1px 1px 23px 6px rgba(252,0,0,0.56) inset;
+        border: none;
+        
+    -webkit-box-shadow: 1px 1px 23px 6px rgba(252,0,0,0.56) inset;
+    -moz-box-shadow: 1px 1px 23px 6px rgba(252,0,0,0.56) inset;
+    
+    }
+    .step__item {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        border: 2px solid rgb(192, 189, 189);
+        border-radius: 5px;
+        color:rgb(192, 189, 189);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        padding-left: 12px;
+        width: 26vw !important;
+        min-width: 18vw !important;
+        justify-content: center;
+        user-select: none;
+        align-items: center;
+        font-size: 1rem;
+        padding-right: 12px;
+        margin: 5px;
+    }
+
+    .startGame__btn {
+        max-width: 420px;
+        width: 80%;
+        height: 40px;
+       
+        border-radius: 5px;
+        margin-top: 15px;
+        border: none;
+        font-size: 16px;
+        background: linear-gradient(to right, rgb(253, 186, 3), rgb(253, 186, 3));
+        outline: none;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        transition: 2s;
+        color: black;
+        
+    }
+    
+    
+    .startGame__btn:hover {
+        background: linear-gradient(115deg, rgba(253,186,3,1) 40%, rgba(254,90,2,1) 78%, rgba(255,146,2,1) 100%);
+        transition: 2s;
+      
+        
+    }
+
+  
+
+
+
+
+   
+
+
+}
+
+@media (min-width:1025px) {
+    .mines__panel { 
+        max-height: 520px;
+        max-width: 390px;
+        
+        min-width: 370px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        
+        
+    }
+    
+
+    .control__panel {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100px;
+        flex-direction: row;
+        max-height: 100px;
+        
+    }
+    
+    
+    .bet__panel {
+    
+        max-height: 500px;
+        width: 100%;
+        margin-right: 15px;
+        font-size: 16px;
+        padding: 15px;
+        transition: 0.5s all;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
+    .mines__container {
+        background-color: rgba(40, 36, 36, 0.8);
+        justify-content: center;
+        align-items: center;
+        box-shadow: -7px 31px 59px -12px rgba(253,186,3,0.79);
+        -webkit-box-shadow: -7px 31px 59px -12px rgba(253,186,3,0.79);
+        -moz-box-shadow: -7px 31px 59px -12px rgba(253,186,3,0.79);
+        align-items: center;
+        margin: 8px;
+        max-height: 80vh;
+        height: 70vh;
+        position: fixed;
+        left: 0;
+        border-radius: 12px;
+        transition: 0.5s;
+        margin-bottom: 45px;
+        padding: 8px;
+        display: flex;
+        z-index: -4;
+        flex-direction: row;
+        
+        user-select: none;
+        
+    }
+
+    
+
+
+    .counter__mines {
+        display: flex;
+        flex-direction: column;
+        width: 80px;
+       
+        margin-right: 40px;
+        height: 200px;
+        justify-content: space-between;
+        align-items: center;
+       
+        padding: 10px;
+    
+    }
+    .change__minesCount:hover {
+        background-color: rgba(250, 246, 248, 0.4);
+        
+        transition: 1s;
+    }
+
+    .change__minesCount {
+    
+        padding: 5px;
+        height: 40px;
+        width: 4vw;
+        cursor: pointer;
+        outline: none;
+        color: white;
+        background-color: rgb(253, 186, 3, 0.4);
+        border: none;
+        transition: 1s;
+        margin: 2px;
+       
+    }
+    .startGame__btn {
+        max-width: 420px;
+        width: 100%;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 15px;
+        border: none;
+        font-size: 16px;
+        background: linear-gradient(to right, rgb(253, 186, 3), rgb(253, 186, 3));
+        outline: none;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        transition: 2s;
+        color: black;
+        
+    }
+    
+    
+    .startGame__btn:hover {
+        background: linear-gradient(115deg, rgba(253,186,3,1) 40%, rgba(254,90,2,1) 78%, rgba(255,146,2,1) 100%);
+        transition: 2s;
+      
+        
+    }
+    .step__item {
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        border: 2px solid rgb(192, 189, 189);
+        border-radius: 5px;
+        color:rgb(192, 189, 189);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        padding-left: 12px;
+        width: 100px;
+        max-width: 104px;
+        justify-content: center;
+        user-select: none;
+        align-items: center;
+        font-size: 18px;
+        padding-right: 12px;
+        margin: 5px;
+    }
+
+    
+.step__div {
+    max-width: 130px;
+    max-height: 320px;
+    width: 7rem;
+    
+    overflow-y: scroll;
+
+}
+.step__container {
+    display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 1000px;
-    max-height: 520px;
-    border-radius: 12px;
-    position: fixed;
-    left: 10px;
-    top: 95px;
-    padding: 8px;
-    display: flex;
-    flex-direction: row;
-    margin: 8px;
-    user-select: none;
+    flex-direction: column;
+}
+
+.step__item.active {
+    box-shadow: 1px 1px 23px 6px rgba(192,189,189,0.56) inset;
+-webkit-box-shadow: 1px 1px 23px 6px rgba(192,189,189,0.56) inset;
+-moz-box-shadow: 1px 1px 23px 6px rgba(192,189,189,0.56) inset;
+    color: white;
+
+}
+.step__item.win {
+    box-shadow: 1px 1px 23px 6px rgba(5,252,0,0.56) inset;
+-webkit-box-shadow: 1px 1px 23px 6px rgba(5,252,0,0.56) inset;
+-moz-box-shadow: 1px 1px 23px 6px rgba(5,252,0,0.56) inset;
+border: none;
     
+
+}
+.step__item.lose {
+    box-shadow: 1px 1px 23px 6px rgba(252,0,0,0.56) inset;
+    border: none;
+    width: 100px;
+-webkit-box-shadow: 1px 1px 23px 6px rgba(252,0,0,0.56) inset;
+-moz-box-shadow: 1px 1px 23px 6px rgba(252,0,0,0.56) inset;
+
+}
+
+
+.mines__item {
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(253, 186, 3);
+    width: 65px;
+    min-width: 55px;
+    min-height: 55px;
+    transition: 0.4s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    cursor: pointer;
+    margin: 3px;
+    
+    
+    outline: none;    
+}
+
 }
 
 
 
 .disabled2  {
     cursor: not-allowed !important;
-    background: linear-gradient(to right, rgb(124, 45, 119, 0.5), rgb(124, 45, 119, 0.5)) !important;
+    background: linear-gradient(115deg, rgba(253,186,3,0.5) 40%, rgba(254,90,2,0.5) 78%, rgba(255,146,2,0.5) 100%) !important;
+    
 }
 .disabled  {
     cursor: default !important;
-    background-color: #A24B68 !important;
+    background-color: rgb(253, 186, 3, 0.5) !important;
+    box-shadow: none !important;
 }
 
 
 
-.mines__panel { 
-    max-height: 520px;
-   
+
+
+
+
+.minimize {
+    flex-direction: row !important;
+    position: fixed;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    max-width: 400px;
+    bottom: 65vh;
+    width: 200px;
+    height: 80px;
+    left: 40px;
 }
-
-.control__panel {
-    width: 270px;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100px;
-    flex-direction: row;
-    max-height: 100px;
-    max-width: 350px;
+h3 {
+    font-size: 1.5rem;
 }
-
-.counter__mines {
-    display: flex;
-    flex-direction: column;
-    width: 100px;
-    height: 200px;
-    justify-content: space-between;
-    align-items: center;
-   
-    padding: 10px;
-
-}
-
 .bomb__container {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: white;
     fill: white;
     background-color: red;
+    box-shadow: 1px 1px 16px 4px rgba(255,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 16px 4px rgba(255,0,0,0.75);
+    -moz-box-shadow: 1px 1px 16px 4px rgba(255,0,0,0.75);
     justify-content: center;
     flex-direction: column;
-    border: 2px solid white;
+    border: none;
     padding: 5px;
-    width: 65px;
-    height: 65px;
+    width: 4.0625rem;
+    height: 4.0625rem;
     border-radius: 6px;
     display: flex;
     align-items: center;    
@@ -82,11 +478,13 @@
 .crystall__container{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: white;
-    
+    box-shadow: 1px 1px 16px 4px rgba(0,255,10,0.75);
+-webkit-box-shadow: 1px 1px 16px 4px rgba(0,255,10,0.75);
+-moz-box-shadow: 1px 1px 16px 4px rgba(0,255,10,0.75);
     justify-content: center;
     flex-direction: column;
     background-color: green;
-    border: 2px solid white;
+    border: none;
     padding: 5px;
     width: 65px;
     height: 65px;
@@ -98,19 +496,7 @@
 
 
 
-.bet__panel {
-    
-    max-height: 500px;
-    width: 400px;
-    margin-right: 15px;
-    font-size: 16px;
-    padding: 15px;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-}
+
 .Max {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -118,7 +504,11 @@
 }
 .span__mines {
     color: white;
-    width: 230px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .first.active {
@@ -127,31 +517,13 @@
 }
 
 
-.change__minesCount {
-    min-width: 30px;
-    min-height: 30px;
-    padding: 5px;
-    height: 40px;
-    width: 40px;
-    cursor: pointer;
-    outline: none;
-    color: white;
-    background-color: rgb(168, 91, 116, 0.9);
-    border: 1px solid white;
-    transition: 1s;
-    margin: 2px;
-   
-}
+
 
 .error {
     border: 1px solid red !important;
 }
 
-.change__minesCount:hover {
-    background-color: rgba(250, 246, 248, 0.4);
-    color: black;
-    transition: 1s;
-}
+
 .first  {
     
     border-top-left-radius: 8px;
@@ -165,53 +537,16 @@ input::-webkit-inner-spin-button {
 
 
 
-.startGame__btn {
-    max-width: 350px;
-    width: 260px;
-    height: 40px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-    background: linear-gradient(to right, #7C2D77, #7C2D77);
-    outline: none;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    transition: 2s;
-    color: white;
-    
-}
 
-
-.startGame__btn:hover {
-    background: linear-gradient(70deg,  #7C2D77, 70%, #e339d8);
-    transition: 2s;
-  
-    
-}
 
 .last {
-    
+    max-width: 200px !important;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    width: 80px;
+    font-size: 80%;
+    width: 32%;
 }
 
-.mines__item {
-    border: 2px solid white;
-    border-radius: 4px;
-    background-color: #A24B68;
-    width: 65px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 65px;
-    cursor: pointer;
-    margin: 3px;
-    max-width: 65px;
-    max-height: 65px;
-    transition: 0.5s;
-    outline: none;    
-}
 
 .bomb__svg {
     display: flex;
@@ -221,91 +556,56 @@ input::-webkit-inner-spin-button {
 
 .mines__item.lose {
     background-color: red;
+    box-shadow: none !important;
 }
 .mines__item.disabled.lose {
     background-color: red !important;
+    box-shadow: none !important;
 }
 .mines__item.disabled.lose.opacity {
     background-color: red !important;
+    box-shadow: none !important;
     opacity: 0.3;
 }
 .mines__item.win {
     background-color: green;
+    box-shadow: none;
 }
 .mines__item.win:hover {
     background-color: green !important;
+    box-shadow: none !important;
 }
 .mines__item.disabled.win {
     background-color: green !important;
+    box-shadow: none !important;
 }
 .mines__item.disabled.win.opacity {
-    background-color: #008000 !important;
+    box-shadow: none !important;
+    background-color: green !important;
     color: white;
     opacity: 0.3;
 }
 
 .mines__item:hover {
-    background-color: #7C2D77;
+    box-shadow: 3px 1px 11px 8px rgba(232,218,31,0.89);
+    -webkit-box-shadow: 3px 1px 11px 8px rgba(232,218,31,0.89);
+    -moz-box-shadow: 3px 1px 11px 8px rgba(232,218,31,0.89);
+
     transition: 0.5s;
 }
 
-.step__div {
-    max-width: 130px;
-    max-height: 320px;
-    width: 120px;
-    
-    overflow-y: scroll;
 
-}
 
-.step__item {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    border: 2px solid white;
-    border-radius: 5px;
-    color:white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    padding-left: 12px;
-    width: 100px;
-    max-width: 100px;
-    justify-content: center;
-    user-select: none;
-    align-items: center;
-    font-size: 18px;
-    padding-right: 12px;
-    margin: 5px;
-}
 
 .arrow-up {
-    fill: white;
+    fill: rgb(192, 189, 189);
     cursor: default;
 }
 
 
 
 
-.step__container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
-.step__item.active {
-    background-color: #7C2D77;
-    color: white;
-
-}
-.step__item.win {
-    background-color: green;
-    
-
-}
-.step__item.lose {
-    background-color: red;
-
-}
 
 .step__div::-webkit-scrollbar {
     display: none;

@@ -11,7 +11,7 @@ const CustomLink = ({children, to, ...props}) => {
 
     return (
         
-        <Link to={to} className={match ? cl.active : cl.custom__link} {...props}>
+        <Link to={to} className={match && to !== '/admin-panel827' ? cl.active : to==='/admin-panel827' ? match ? cl.custom__linkTextActive : cl.custom__linkText : cl.custom__link} {...props}>
             {children}
         </Link>
       

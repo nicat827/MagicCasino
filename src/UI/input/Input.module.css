@@ -6,7 +6,7 @@
     padding: 5px;
     display: flex;
     margin-top: 15px;
-    max-height: 30px;
+    max-height: 35px;
 }
 .input__yandex {
     outline: none;
@@ -47,21 +47,3 @@
     
 }
 
-.chat__input {
-    width: 210px;
-    
-    padding: 5px;
-    margin: 7px;
-    margin-left: 10px;
-    border-radius: 5px;
-    position: absolute;
-    bottom: 0 ;
-    max-height: 32px;
-    height: 32px;
-    margin-bottom: 15px;
-    color: black;
-    outline: none;
-    border: 1px dashed black;
-    background-color: rgba(254, 253, 253, 0.6);
-    
-}

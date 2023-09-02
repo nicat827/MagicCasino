@@ -4,35 +4,208 @@
     box-sizing: border-box;
 }
 
+
 #root {
-    display: flex;
-    justify-content: center;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
    
-   
-    
-    
-    
-    
-    
-    
+    z-index: -99 !important;
 }
 
-.App {
+
+
+@media (max-width:925px) {
     
+    #root {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        background: linear-gradient(90deg, rgba(13,13,27,1) 0%, rgba(42,33,33,1) 30%, rgba(19,29,31,1) 100%);
+        
+    }
+    .App {
+        width: 100%;
+        background: linear-gradient(90deg, rgba(13,13,27,1) 0%, rgba(42,33,33,1) 30%, rgba(19,29,31,1) 100%);
+        z-index: -3;
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+              
+    }
+
+    .rightMenu__div.active {
+        visibility: visible;
+        z-index: 999;
+        opacity: 1;
+    }
+    .rightMenu__inner {
+       
+        width: 100vw;
+        background-color: rgb(42, 33, 33, 0.5);
+        -webkit-backdrop-filter: blur(1rem);
+        backdrop-filter: blur(1rem);
+        height: 100%;
+       
+        display: flex;
+        flex-direction: column;
+        
+        padding-bottom: 0.7rem;
+    }
+    .rightMenu__div {
+        
+        visibility: hidden;
+        opacity: 0;
+        font-family: 'Rubik', sans-serif;
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        
+    }
+
+    .link {
+        text-decoration: none;
+        font-weight: 900;
+        color: #ebeffd;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 5px;
+        margin-left: 15px;
+        margin-top: 10px;
+        border: none;
+
+
+    }
+    .menu-close-icon {
+        position: fixed;
+        right: 3px;
+        
+        top: 3px;
+        cursor: pointer;
+       
+    }
+    
+    .link:hover {
+        
+        
+        color: rgb(256,186,3);
+        border-right: 2px solid rgb(256,186,3);
+    }
+
+    .link.active {
+        color: rgb(256,186,3);
+    }
+}
+@media (max-width:1024px) and (min-width:926px) {
+    #root {
+        overflow-y: scroll;
+        overflow-x: hidden
+    }
+    .App {
+        width: 100%;
+        flex-wrap: wrap;
+        background: linear-gradient(90deg, rgba(13,13,27,1) 0%, rgba(42,33,33,1) 30%, rgba(19,29,31,1) 100%);
+        z-index: -3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+              
+    }
+
+   
+    .rightMenu__div.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    .rightMenu__div {
+        
+        visibility: hidden;
+        opacity: 0;
+        font-family: 'Rubik', sans-serif;
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        
+    }
+
+    .link {
+        text-decoration: none;
+        font-weight: 900;
+        color: #ebeffd;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 5px;
+        margin-left: 15px;
+        margin-top: 10px;
+        border: none;
+
+
+    }
+    .menu-close-icon {
+        position: fixed;
+        right: 3px;
+        
+        top: 3px;
+        cursor: pointer;
+       
+    }
+    
+    .link:hover {
+        
+        
+        color: rgb(256,186,3);
+        border-right: 2px solid rgb(256,186,3);
+    }
+
+    .link.active {
+        color: rgb(256,186,3);
+    }
+
+}
+@media (min-width:1025px) {
+
+    .rightMenu__div {
+        display: none;
+    }
+    .App {
+
+    
+        width: 100vw;
+        
+        background: linear-gradient(90deg, rgba(13,13,27,1) 0%, rgba(42,33,33,1) 30%, rgba(19,29,31,1) 100%);
+    
+        height: 100vh;
+        position: fixed;
+        top: 72px;
+        
+        z-index: -3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+              
+    }
+    
+} 
+
+
+.loader__div {
+    
+    background-color: #2a2121;
     width: 100%;
-    background-image: url('../icons/ethical-sapphire-cheetah.png');
-    height: 100%;
-    z-index: -3;
+    height: 658px;
     display: flex;
     justify-content: center;
-    align-items: center !important;
-    position: fixed;
-    top: 60px;
-   
-    
-    
+    align-items: center;
 }
+
 
 .yandex-div {
     display: flex;

@@ -13,15 +13,17 @@ import ChatItem from './ChatItem';
 import { useEffect } from 'react';
 import { Context } from '../..';
 import { observer } from 'mobx-react-lite';
-import { set } from 'mongoose';
+import socket from '../../socket';
 
 const Chat = () => {
+  
+   
     
     
     const {hiddenChat, setHiddenChat} = useContext(AuthContext)
     const [chatMessage, setChatMessage] = useState('')
     const {store} = useContext(Context)
-    const {banned, muteDiv, setMuteDiv, setSecondMuteDiv, setHalfDayMuteDiv, setDayMuteDiv, setOneHourMuteDiv, setThreeHourMuteDiv,  setBanChat} = useContext(AuthContext)
+    const {banned, muteDiv, secondMuteDiv, oneHourMuteDiv, threeHourMuteDiv, halfDayMuteDiv, dayMuteDiv, banChat,  setMuteDiv, setSecondMuteDiv, setHalfDayMuteDiv, setDayMuteDiv, setOneHourMuteDiv, setThreeHourMuteDiv,  setBanChat} = useContext(AuthContext)
     const [scroll, setScroll] = useState(false)
 
     const [firstBan, setFirstBan] = useState(false)    
@@ -43,100 +45,117 @@ const Chat = () => {
 
    
     useEffect(() => {
-        store.getMessage();
-    }, [])
-   
-
-    useEffect(() => {
-            if(store.send) {
-                store.getMessage();
-                store.setSend(false)
-                if (chatBody.current.scrollTop >= 260) {
+      
+        socket.on("get_message", (data) => { 
+            console.log('50 chat')
+            console.log(data)
+            if (data === 'Вы были заблокированны на 15 минут!') {
+                setMuteDiv(true)
+                setTimeout(() => {
+                    setMuteDiv(false)
                     
-                    console.log(chatBody.current.scrollTop)
+                }, 2900)
+            }
+            if (data === 'Вы были заблокированны на 30 минут!') {
+                setSecondMuteDiv(true)
+                setTimeout(() => {
+                    setSecondMuteDiv(false)
+                   
+                }
+                , 2900)
+            }
+            if (data === 'Вы были заблокированны на 1 час!') {
+                setOneHourMuteDiv(true)
+                setTimeout(() => {
+                    setOneHourMuteDiv(false)
+                    
+                }, 2900)
+            }
+            if (data === 'Вы были заблокированны на 3 часа!') {
+                setThreeHourMuteDiv(true)
+                setTimeout(() => {
+                    setThreeHourMuteDiv(false)
+                   
+                }, 2900)
+            }
+            if (data === 'Вы были заблокированны на 12 часов!') {
+                setHalfDayMuteDiv(true)
+                setTimeout(() => {
+                    setHalfDayMuteDiv(false)
+                    
+                }, 2900)
+            }
+            if (data === 'Вы были заблокированны на сутки!') {
+                setDayMuteDiv(true)
+                setTimeout(() => {
+                    setDayMuteDiv(false)
+                    
+                }, 2900)
+            }
+            
+            if (data === 'Вы были заблокированны навсегда!') {
+                setBanChat(true)
+                setTimeout(() => {
+                    setBanChat(false)
+                    
+                }, 2900)
+                
+            }
+            else if (typeof data !== 'string') {
+                store.setMessagesMassive(data)
+                 if ( chatBody.current && chatBody.current.scrollTop >= 200) {
+                    console.log(chatBody.current.scrollTop )
                     
                     setScroll(false)
+                }
+                else {
+                    setScroll(true)
                 } 
-                if (!scroll){
+                if ( chatBody.current && !scroll) {
+                    console.log(chatBody.current.scrollTop )
+                    console.log(chatBody)
                     setTimeout(() => chatBody.current.scrollTo(0, 1500), 555)
                 }
-                      
-            }   
-      }, [store.send])
+            }
+           
+            
+        })
+        
+        return () => {
+            socket.off('get_message')
+        }
+        
+    }, []) 
 
+   
 
       
-      const sendAndGetMessage = async (e, message) => {
-        setSendKd(true)
+    const sendMessage = async (e, message) => {
+        
         e.preventDefault();
         setChatMessage('')
-        setSendKd(true)
-        const res = await store.sendMessage(store.user.email, message, store.user.name, store.user.surname, store.user.photo)
-        
-        
-        if (res === 'Вы были заблокированны на 15 минут!') {
-            setMuteDiv(true)
-            setTimeout(() => {
-                setMuteDiv(false)
-                
-            }, 2900)
-        }
-        if (res === 'Вы были заблокированны на 30 минут!') {
-            setSecondMuteDiv(true)
-            setTimeout(() => {
-                setSecondMuteDiv(false)
-               
+        socket.emit("send_message",
+         {
+                email:store.user.email,
+                message,
+                name:store.user.name,
+                surname: store.user.surname,
+                photo:store.user.photo,
+                id:store.id
             }
-            , 2900)
-        }
-        if (res === 'Вы были заблокированны на 1 час!') {
-            setOneHourMuteDiv(true)
-            setTimeout(() => {
-                setOneHourMuteDiv(false)
-                
-            }, 2900)
-        }
-        if (res === 'Вы были заблокированны на 3 часа!') {
-            setThreeHourMuteDiv(true)
-            setTimeout(() => {
-                setThreeHourMuteDiv(false)
-               
-            }, 2900)
-        }
-        if (res === 'Вы были заблокированны на 12 часов!') {
-            setHalfDayMuteDiv(true)
-            setTimeout(() => {
-                setHalfDayMuteDiv(false)
-                
-            }, 2900)
-        }
-        if (res === 'Вы были заблокированны на сутки!') {
-            setDayMuteDiv(true)
-            setTimeout(() => {
-                setDayMuteDiv(false)
-                
-            }, 2900)
-        }
-        if (res === 'Вы забанены навсегда!') {
-            setBanChat(true)
-            setTimeout(() => {
-                setBanChat(false)
-                
-            }, 2900)
-            
-        }
-       
-        setTimeout(() => setSendKd(false), 2900)
-        
-        
-        
+            )    
         
         
     }
     
-  
+
+   
+   
     return (
-        <div className={clChat.chat}>
+       
+        
+        <div className={hiddenChat ? clChat.hiddenChat : clChat.chat} style={hiddenChat ? {zIndex:'0'} : null}>
+            
             <div className={hiddenChat ? clChat.hidden__header : clChat.chat__header}>
                 <svg id={clChat.chat__icon} style={hiddenChat ? {cursor:'pointer'} : {cursor:'auto'}} onClick={() => setHiddenChat(false)} width="8336" height="7525" viewBox="0 0 8336 7525" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4161 0.382812C1854.97 0.382812 0.677823 1564.51 0.677823 3494.14C0.677823 4327.6 348.866 5089.5 929.779 5689.48C725.921 6535.54 44.711 7289.72 36.5567 7298.12C-0.137604 7335.92 -10.3305 7394.44 12.0938 7444.82C32.4633 7495.22 77.6708 7524.88 130.674 7524.88C1211.12 7524.88 2007.79 6991.4 2423.66 6661.68C2955.8 6867.44 3549.28 6987.38 4175.21 6987.38C6481.23 6987.38 8335.53 5423.08 8335.53 3508.74C8335.53 1594.41 6467.04 0.382812 4161 0.382812ZM2058.82 4031.64C1769.34 4031.64 1536.95 3792.28 1536.95 3509.24C1536.95 3226.22 1769.34 2971.74 2058.82 2971.74C2348.29 2971.74 2580.69 3211.1 2580.69 3509.24C2580.69 3807.4 2362.16 4031.64 2058.82 4031.64ZM4161 4031.64C3871.53 4031.64 3653.81 3792.28 3653.81 3509.24C3653.81 3226.22 3886.21 2971.74 4161 2971.74C4435.79 2971.74 4668.19 3211.1 4668.19 3509.24C4668.19 3807.4 4451.29 4031.64 4161 4031.64ZM6233.82 4031.64C5944.35 4031.64 5711.94 3792.28 5711.94 3509.24C5711.94 3226.22 5944.35 2971.74 6233.82 2971.74C6523.29 2971.74 6755.69 3211.1 6755.69 3509.24C6755.69 3807.4 6537.16 4031.64 6233.82 4031.64Z" fill="#050502"/>
@@ -169,9 +188,11 @@ const Chat = () => {
 
                     
                 </div>
+                
+                <div className={clChat.chat__footer}>
                 {store.isAdmin && (
                     <div className={clChat.chatBan__btnsDiv}>
-                        <button style={firstBan ? {backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={firstBan ? {backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!firstBan) {
                                 setFirstBan(true)
                                 setSecondBan(false)
@@ -187,7 +208,7 @@ const Chat = () => {
 
                             
                             }}>15m</button>
-                        <button style={secondBan ? {backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={secondBan ? {backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!secondBan) {
                                 setSecondBan(true)
                                 setFirstBan(false)
@@ -202,7 +223,7 @@ const Chat = () => {
                             }
                             
                             }}>30m</button>
-                        <button style={oneHourBan ? {backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={oneHourBan ? {backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!oneHourBan) {
                                 setOneHourBan(true)
                                 setFirstBan(false)
@@ -217,7 +238,7 @@ const Chat = () => {
                             }
                             
                             }}>1ч</button>
-                        <button style={threeHourBan ?{backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={threeHourBan ?{backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!threeHourBan) {
                                 setThreeHourBan(true)
                                 setFirstBan(false)
@@ -232,7 +253,7 @@ const Chat = () => {
                             }
                             
                             }}>3ч</button>
-                        <button style={halfDayBan ? {backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={halfDayBan ? {backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!halfDayBan) {
                                 setHalfDayBan(true)
                                 setFirstBan(false)
@@ -247,7 +268,7 @@ const Chat = () => {
                             }
                             
                             }}>12ч</button>
-                        <button style={dayBan ? {backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={dayBan ? {backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!dayBan) {
                                 setDayBan(true)
                                 setFirstBan(false)
@@ -262,7 +283,7 @@ const Chat = () => {
                             }
                             
                             }}>24ч</button>
-                        <button style={foreverBan ? {backgroundColor:'black', color:'white', transition:'1s', border:'1px solid white'} : null} className={clChat.chatBan__btn} onClick={() => {
+                        <button style={foreverBan ? {backgroundColor:'black', color:'white', transition:'1s'} : null} className={clChat.chatBan__btn} onClick={() => {
                             if (!foreverBan) {
                                 setForeverBan(true)
                                 setFirstBan(false)
@@ -280,27 +301,27 @@ const Chat = () => {
                     </div>
                 )}
                 
-                <form onSubmit={(e) =>  sendAndGetMessage(e, chatMessage)}>
-                <div className={clChat.chat__footer}>
-
                 
-                <input
-                placeholder='Введите сообщение' 
-                className={clInput.chat__input} 
-                maxLength='130'
-                ref={inputRef}
-                value={chatMessage} onChange={(e) => setChatMessage(e.target.value)}
-                />
+
+                <div className={clChat.inputChat__div}>
+                    <form onSubmit={(e) =>  sendMessage(e, chatMessage)}>
+                    <input
+                        placeholder='Введите сообщение' 
+                        className={clChat.chat__input} 
+                        maxLength='130'
+                        ref={inputRef}
+                        value={chatMessage} onChange={(e) => setChatMessage(e.target.value)}
+                    />
 
                 
 
                 <Button 
-                className={clButton.chat__sendMessageBtn}
+                className={clChat.chat__sendMessageBtn}
                  
-                style={store.isAuth && chatMessage && !muteDiv && !sendKd ? {cursor:'pointer', backgroundColor: '#77137D', borderRadius:'5px'} : {cursor:'not-allowed', borderRadius:'5px'}} 
+                style={store.isAuth && chatMessage &&    !sendKd &&  !muteDiv  && !secondMuteDiv && !oneHourMuteDiv && !threeHourMuteDiv && !halfDayMuteDiv && !dayMuteDiv && !banChat ? {cursor:'pointer', backgroundColor: 'rgb(253, 186, 3)', borderRadius:'5px'} : {cursor:'not-allowed', borderRadius:'5px'}} 
                 
                 
-                disabled={store.isAuth && chatMessage && !sendKd && !muteDiv ? false  : true}>
+                disabled={store.isAuth && chatMessage && !sendKd && !muteDiv && !secondMuteDiv && !oneHourMuteDiv && !threeHourMuteDiv && !halfDayMuteDiv && !dayMuteDiv && !banChat ? false  : true}>
 
 
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -308,12 +329,16 @@ const Chat = () => {
                 </svg>
 
                 </Button>
+                </form> 
+                </div>
+                
+            
+              
             </div>
-            </form>   
             </div>
         </div>
         
-        
+       
         
     );
 };

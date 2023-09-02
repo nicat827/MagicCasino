@@ -1,32 +1,857 @@
-.container__flex {
+.jackpot__container {
+    background-color: rgb(168, 91, 116, 0.3);
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 1000px;
+    max-height: 520px;
+    border-radius: 12px;
+    position: fixed;
+    left: 10px;
+    top: 95px;
+    padding: 8px;
+    height: 600px;
     display: flex;
-    width: 1640px;
-    height: 482px;
-    border-bottom: 2px blue solid;
-    border-top: 2px blue solid;
+    flex-direction: row;
+    margin: 8px;
+    user-select: none;
+}
+
+.jackpot__panel {
+   width: 400px;
+   height: 100px;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   background: rgb(168, 91, 116, 0.3);
+   position: absolute;
+   top: 0;
+  
+}
+
+.info__gameDiv {
+    width: 85%;
+    height: 12%;
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+    padding-right: 16px;
+    box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    -webkit-box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    -moz-box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    background-color: rgba(40, 36, 36, 0.8);
+}
+
+.info__gameSpan {
+    
+    background-color: white;
+    color: #000;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 6px;
+    font-size: 18px;
+    top: -10px;
+    bottom: 0;
+    
+    left: 10px;
+    width: 50%;
+    height: 50%;
+    padding-left: 10px;
+    letter-spacing: 4px;
+    display: flex;
+    position: absolute;
     justify-content: center;
     align-items: center;
-   
+    padding-right: 10px;
+    text-transform: uppercase;
+
 }
 
-.flex {
-    background-color: black;
-    border-radius: 4px;
-    width: 250px;
-    height: 400px;
-    margin: 10px;
+.playerImg {
+    border-radius: 16px;
+    border: 1px solid white;
+    width: 40px;
+    margin: 5px;
+    height: 40px;
+}
+.playerInfo{
     color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 6px;
+    max-width: 200px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 3px;
 }
 
-.div {
-   
-    background-color: white;
-    position: absolute;
-    bottom: 159px;
-    border-top-right-radius: 5px;
-    width: 100px;
-    height: 60px;
+.ticketIcon {
+    width: 25px;
+    height: 25px;
+    fill: #fff;
+    margin-right: 5px;
+  
+}
+
+.playerBetsDiv {
+    color: white;
+    
+    max-width: 150px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
     
 }
+
+.ticketDiv {
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    word-break: break-all;
+   
+}
+.playerBox {
+    width: 43%;
+    height: 35%;
+    max-height: 80vh;
+    user-select: none;
+    word-wrap: break-word;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(256, 186, 3, 0.4);
+    border-radius: 70px;
+    margin: 10px; 
+}
+
+.playerBoxMini {
+    user-select: none;
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: 35%;
+    padding: 17px;
+    flex-direction: column;
+    background-color: rgba(256, 186, 3, 0.4);
+    border-radius: 70px;
+    margin: 10px; 
+}
+
+.start__btn.disabled {
+    cursor: not-allowed !important;
+    background-color: rgb(256, 186, 3, 0.5) !important;
+    border: none !important;
+}
+
+
+.betInfo__div::-webkit-scrollbar, .betInfo__divMini::-webkit-scrollbar {
+    display: none;
+    
+}
+
+
+.coinIcon{
+    fill: white;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+
+
+
+
+.type__btnsDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 65%;
+    padding: 10px;
+    background-color: rgba(40, 36, 36, 0.8);
+    box-shadow: 1px 1px 41px 4px rgba(256,186,3,0.62);
+-webkit-box-shadow: 1px 1px 41px 4px rgba(256,186,3,0.62);
+-moz-box-shadow: 1px 1px 41px 4px rgba(256,186,3,0.62);
+    border-radius: 6px;
+    user-select: none;
+}
+.type__btns {
+    width: 80%;
+    height: 30%;
+    
+    background-color: rgb(60, 60, 70, 0);
+    outline: none;
+    border-radius: 6px;
+    
+   
+    margin: 10px;
+    color: white;
+    border: 2px solid white;
+    cursor: pointer;
+
+}
+
+.slider__photo {
+    margin: 1px;
+    border-radius: 4px;
+    width: 65px;
+    height: 65px;
+    
+
+}
+
+.chance__photo {
+    width: 65px;
+    height: 65px;
+    border-radius: 4px;
+    
+    
+}
+
+p {
+    letter-spacing: 2px;
+    font-family: monospace;
+    color: white;
+    font-weight: 900;
+    font-size: 22px;
+
+}
+
+.winBilet__span {
+    transition: 0.5s;
+    text-shadow: white 1px;
+    letter-spacing: 6px;
+    font-family: monospace;
+    color: white;
+    font-weight: 900;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+}
+
+.blur {
+    filter: blur(5px);
+    transition: 0.5s !important;
+}
+
+.chance__span {
+    
+    font-size: 14px;
+    width: 45px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 23px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(256,186,3);
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 8px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    
+}
+
+
+
+.procent__div::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes start_opacity {
+    0% {
+        opacity: 0;
+        
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.wait_p {
+    animation-name: start_opacity;
+    animation-duration: 3s;
+    transition: opacity 3s all;
+}
+
+
+
+.procent__div {
+    display: flex;
+    margin-top: 12px;
+    width: 95%;
+    flex-direction: row;
+    overflow: scroll hidden;
+    justify-content: center;
+    align-items: flex-start;
+    
+    
+    
+}
+
+.user__chanceDiv {
+   
+    border-radius: 4px;
+    width: 65px;
+    height: 65px;
+    margin: 5px;
+    position: relative;
+    user-select: none;
+    
+}
+
+.slider__div {
+    max-width: 95%;
+    width: 95%;
+    overflow: scroll hidden;
+    transition: height 1s;
+    display: flex;
+    height: 77px;
+    border-radius: 5px;
+    z-index: 999;
+    position: relative;
+    flex-direction: row;
+    user-select: none;
+    justify-content: flex-start;
+    align-items: center;
+      
+}
+
+.slider__div::-webkit-scrollbar, .cards__div::-webkit-scrollbar {
+    display: none;
+}
+
+.cards__div > div {
+    position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: left;
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 5px;
+	width: 100%;
+	height: 65px;
+	color: #6A6A6A;
+	background: white;
+	border-radius: 10px;
+}
+
+.cards__div {
+    width: auto;
+    height: 65px;
+    display: flex;
+    margin: 0;
+    justify-content: flex-start;
+    align-items: center;
+    left: 0;
+    
+    position: relative;
+    
+     
+}
+
+
+
+
+
+.start__btn:hover {
+    transition: all 0.4s;
+	background: #4CBD58;
+}
+
+
+.start__btn {
+   
+	transition: all 0.4s;
+	background-color: rgb(256, 186, 3, 1);
+	border: none;
+    outline: none;
+	color: white;
+	font-weight: bold;
+    width: 25%;
+    height: 100%;
+	transition: 0.3s ease;
+	cursor: pointer;
+	
+}
+
+
+
+
+.control__btns {
+    
+    font-weight: bold;
+    transition: 0.3s ease;
+    cursor: pointer;
+    min-width: 10%;
+    height: 100%;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: rgb(256, 186, 3, 0.4);
+
+    user-select: none;
+    
+}
+
+.control__btns:hover {
+    background: #6A6A6A;
+}
+
+.start {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.end {
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+    border: none !important;
+}
+.control__panelJackpot {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 15%;
+    width: 95%;
+    margin-bottom: 12px;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+
+
+
+.jackpotDiv {
+    width: 100%;
+    height: 600px;
+    position: fixed;
+    background-image: url('../icons/ethical-sapphire-cheetah.png');
+    bottom:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+.animationTimer__divWait {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    background: rgb(233,200,28);
+    background: linear-gradient(121deg, rgba(233,200,28,1) 28%, rgba(239,145,20,1) 63%, rgba(255,0,0,1) 95%);
+}
+.animationTimer__divPlay {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    box-shadow: -9px 0px 34px 5px red;
+    -webkit-box-shadow: -9px 0px 34px 5px red;
+    -moz-box-shadow: -9px 0px 34px 5px red;
+    background-color: red;
+    right: -100%;
+}
+.animationTimer__divTime {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    box-shadow: -9px 0px 34px 5px rgba(256,186,3,0.75);
+    -webkit-box-shadow: -9px 0px 34px 5px rgba(256,186,3,0.75);
+    -moz-box-shadow: -9px 0px 34px 5px rgba(256,186,3,0.75);
+    background: rgb(233,200,28);
+    background: linear-gradient(121deg, rgba(233,200,28,1) 28%, rgba(239,145,20,1) 63%, rgba(255,0,0,1) 95%);
+}
+.line {
+    width: 2px;
+    height: 77px;
+    position: absolute;
+    margin: 0;
+    background-color: red;
+    border-radius: 4px;
+    z-index: 2;
+    right: 50%;
+    
+}
+
+.slider__div.hiddenSlider {
+    transition: height 1s;
+    width: 95%;
+    max-width: 95% !important;
+    height: 0px !important;
+    
+}
+
+.bg-slider__div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.lastWinner__span {
+    color: white;
+    font-weight: 1000;
+    letter-spacing: 1.5px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    text-shadow: 1px 0px 14px rgb(255, 255, 255);
+}
+.lastWinner__bet {
+    margin-top: 5px;
+    font-size: 1rem;
+    text-shadow: 1px 0px 14px rgb(255, 255, 255);
+
+}
+.lastWinner__rightSide {
+    display: flex;
+    height: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+}
+.lastWinner__chance {
+    color: rgb(243, 178, 0);
+    text-shadow: 1px 0px 14px rgb(243, 178, 0);
+    border-bottom: 2px solid white;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serifs;
+}
+
+.lastWinner__p {
+    color: white;
+    text-shadow: 1px 0px 14px rgb(255, 255, 255);
+    font-size: 1.1rem;
+    word-break: break-all;
+}
+.lastWinner__text {
+    color: black;
+    font-weight: 800;
+    background-color: white;
+    letter-spacing: 1.5px;
+    font-family: monospace;
+    font-size: 1rem;
+    text-shadow: 1px 0px 14px black;
+}
+.lastWinner__leftSide {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 100%;
+    
+    align-items: center;
+    width: 50%;
+}
+.lastWinner__div {
+    display: flex;
+    width: 45%;
+    padding: 5px;
+    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(40, 36, 36, 0.8);
+    border-radius: 8px;
+    box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    -webkit-box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    -moz-box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    flex-direction: row;
+    height: 26%;
+}
+
+.lastWinner__photo {
+    width: 60px;
+    height: 60px;
+    
+    border-radius: 40px;
+    box-shadow: 1px 1px 15px 2px white;
+    border: none;
+    outline: 1px solid white;
+    -webkit-box-shadow: 1px 1px 15px 2px white;
+    -moz-box-shadow: 1px 1px 15px 2px white;
+}
+
+
+
+.game__div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(40, 36, 36, 0.8);
+    border-radius: 8px;
+    transition: width 0.3s;
+    box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    -webkit-box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    -moz-box-shadow: 1px 1px 28px 4px rgba(256,186,3,0.59);
+    flex-direction: column;
+    height: 55%;
+  
+}
+
+.time__div {
+    border-radius: 6px;
+    user-select: none;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(40, 36, 36, 0.8);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 12%;
+
+}
+@media (max-width:450px) {
+    .time__div, .info__gameDiv {
+        width: 45% !important;
+    }
+
+    .type__btnsDiv {
+        width: 95vw !important;
+        height: 19vw !important;
+        margin: 0 !important;
+        margin-top: 10px !important;
+        padding: 5px !important;
+    }
+    .mobile-top-container {
+        width: 95vw !important;
+        justify-content: space-between !important;
+    }
+    
+    .game__div {
+        width: 95vw !important;
+    }
+}
+@media (max-width:827px) {
+
+    .betInfo__div {
+        display: flex;
+        width: 98vw;
+        height: 32vh;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+
+    }
+
+    .playerBox {
+        width: 32% !important;
+        min-height: 95% !important;
+        min-width: 140px;
+    }
+
+    .slider__div {
+        max-width: 98% !important;
+    }
+    .game__div {
+        margin-top: 10px;
+        height: 50vh;
+        width: 98vw;
+    }
+    .mobile-top-container {
+        margin-top: 100px;
+        display: flex;
+        width: 100vw;
+        justify-content: space-around;
+        height: 10vh;
+        flex-direction: row;
+    }
+
+    .time__div {
+        height: 90% ;
+        width: 28%;
+    }
+    .type__btnsDiv {
+        flex-direction: row ;
+    }
+    .info__gameDiv {
+        width: 30% ;
+        height: 90%;
+    }
+    .type__btnsDiv {
+        justify-content: space-around;
+        width: 36%;
+        height: 90%;
+       
+    }
+    .type__btns {
+        width: 31%;
+        height: 85%;
+        margin: 0;
+    }
+}
+
+@media (max-width:1024px) and (min-width:828px) {
+    
+    
+    .center-div {
+        justify-content: space-between;
+        margin-top: 70px;
+        align-items: flex-start;
+        height: 84vh;
+        
+        transition: 0.3s width;
+        width: 60vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .left-container {
+        margin-top: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 16vw;
+        transition: 0.3s width;
+        height: 84vh;
+    }
+    .App {
+        height: 100vh;
+        
+    }
+    .lastWinner__div {
+        width: 50%;
+    }
+    .playerBox {
+        width: 80%;
+    }
+
+    .type__btnsDiv {
+        margin-bottom: 15px;
+    }
+    
+    .betInfo__div {
+        z-index: 999;
+        max-height: 90vh;
+        margin-top: 40px;
+        width: 21vw;
+        height: 80vh;
+        overflow: hidden scroll;
+        user-select: none;
+        transition: 0.3s;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+       
+    }
+
+    
+}
+@media (min-width:1025px) {
+
+    .betInfo__divMini {
+        width: 17vw;
+        max-height: 80vh;
+        margin-bottom: 40px;
+        overflow: hidden scroll;
+        user-select: none;
+        transition: 0.3s;
+        display: flex;
+        height: 80vh;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        
+       
+    }
+    .betInfo__div {
+        z-index: 999;
+        max-height: 80vh;
+        margin-bottom: 20px;
+        width: 31vw;
+        height: 80vh;
+        overflow: hidden scroll;
+        user-select: none;
+        transition: 0.3s;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+       
+    }
+    .left-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 16vw;
+        transition: 0.3s width;
+        height: 84vh;
+        margin-bottom: 80px;
+    }
+    
+    .left-container__mini {
+        display: flex;
+        transition: 0.3s width;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 15vw;
+        height: 84vh;
+        margin-bottom: 80px;
+    }
+    .center-divMini {
+        
+        width: 47vw;
+        max-width: 47vw;
+        justify-content: space-between;
+        margin-bottom: 80px;
+        align-items: flex-start;
+        height: 84vh;
+        z-index: -5;
+        transition: 0.3s width;
+        display: flex;
+        flex-direction: column;
+    }
+    .center-div {
+        justify-content: space-between;
+        margin-bottom: 80px;
+        align-items: flex-start;
+        height: 84vh;
+        z-index: -5;
+        transition: 0.3s width;
+        width: 56vw;
+        max-width: 56vw;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+h3 {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 2px;
+    user-select: none;
+    font-size: 25px;
+}
+
+
 
 

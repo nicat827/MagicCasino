@@ -10,12 +10,14 @@ import ChatService from "../services/ChatService";
 import PromoService from "../services/PromoService";
 import BalanceService from "../services/BalanceService";
 import MinesService from "../services/MinesService";
+import JackpotService from "../services/JackpotService";
 
 
 
 
 export default class Store {
-    
+    waitNextGameError = false
+    nullBalanceError = false
     user = {};
     isLoading = false;
     isAuth = false;
@@ -32,6 +34,11 @@ export default class Store {
     mines = []
     amountMines = null
     minesHistory = []
+    waitMassive = [];
+    betters = []; 
+    doMassive = [];
+    muteInfoWindowForAdmin = false; 
+    muteInfoWindowForUser = false; 
  
 
 
@@ -39,8 +46,24 @@ export default class Store {
         makeAutoObservable(this)
     }
 
+    setNullBalanceError(bool) {
+        this.nullBalanceError = bool
+    }
+    setWaitNextGameError(bool) {
+        this.waitNextGameError = bool
+    }
+
     setAuth(bool) {
         this.isAuth = bool
+    }
+    setMuteInfoWindowForAdmin(bool) {
+        this.muteInfoWindowForAdmin = bool
+    }
+    setMuteInfoWindowForUser(bool) {
+        this.muteInfoWindowForUser = bool
+    }
+    setBetters(data) {
+        this.betters = data
     }
     setPhoto(photoUrl) {
         this.photo = photoUrl
@@ -282,10 +305,7 @@ export default class Store {
                     this.setUser({})
                     localStorage.removeItem('sid')
                 }
-            } )
-
-        
-           
+            } )           
         }
         catch (e) {
             console.log(e)
@@ -394,9 +414,7 @@ export default class Store {
         catch (e) {
             console.log(e)
         }
-        finally {
-            this.setLoading(false)
-        }
+        
     }
     async sendMessage(email, message, name, surname, photo) {
         try {
@@ -433,6 +451,7 @@ export default class Store {
     async createPromo(promoName, count, amount, type) {
         try {
             const res = await PromoService.createPromo(promoName, count, amount, type)
+            console.log(res)
             return res
         }
         
@@ -456,20 +475,19 @@ export default class Store {
         }
     }
 
-    async banUser(userId, time) {
-        try {
+    // async banUser(userId, time) {
+    //     try {
             
-            const res = await ChatService.banUser(userId, this.user.name, time)
-            console.log(res)
-            if (res.status === 200) {
-                
-                return res.data;
-            }
-        }
-        catch (e) {
-            console.log(e)
-        }
-    }
+    //         const res = await ChatService.banUser(userId, this.user.name, time)
+            
+    //         if (res.status === 200) {  
+    //             return res.data;
+    //         }
+    //     }
+    //     catch (e) {
+    //         console.log(e)
+    //     }
+    // }
 
     async getGameMines(id) {
         try {
@@ -483,6 +501,7 @@ export default class Store {
     }
 
     async getUserFromDb(id) {
+        
         try {
             const res = await VkService.getUserDto(id)
             console.log(res)
@@ -494,9 +513,11 @@ export default class Store {
                 
                 this.setMinesHistory(lastGames)
                 this.setAuth(true)
+                setTimeout(() => this.setLoading(false),1000)
+                
                 return res;
             }
-            
+           
             return res;
         }
 
@@ -504,15 +525,95 @@ export default class Store {
             
         }
     }
+    async checkGameJackpot() {
+        try {
+            const res = await JackpotService.checkGame()
+            return res.data
+        }
+        catch(e) {
+            console.log(e)
+        }
+        
 
-    async startGameMines(amount, countMines) {
+    }
+    async bet(amount) {
         try {
             if (this.balance < amount) {
                 this.setError(true)
                 setTimeout(() => this.setError(false), 2900)
             }
             else {
+                const addToDb = async (amount, id) => {
+                    
+                    if (this.doMassive.indexOf(id) === -1) {
+                        this.doMassive.push(id)
+                        console.log(this.doMassive.length);
+                        const res = await JackpotService.bet(amount, id)
+                        console.log(res)
+                        this.betters.push(res.data)
+                        
+                        const idx = this.doMassive.indexOf(id); 
+                        this.doMassive.splice(idx, 1); 
+                        
+                        this.waitMassive.forEach((el, i) => { 
+                          this.waitMassive.splice(i, 1); 
+                          addToDb(el.amount, el.id); 
+                        })
+                        this.setBalance(res.data.balance.toFixed(2))
+                        
+                    }
+    
+                    else {
+                        this.waitMassive.push({amount,id: this.id})
+    
+                    }
+                }
+                
+                console.log(this.id)
+                addToDb(amount, this.id) 
+               
+               
+            }
+            
+        }
+
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    // async test(amount, date)  {
+        
+    //     if (delay === 0) {
+    //         const res = await JackpotService.bet(amount, this.id)
+    //     }
+    //     else {
+
+    //     }
+        
+    // }
+
+    async startGameJackpot(totalBets) {
+        try {
+            const res = await JackpotService.start(totalBets, this.id)
+        }
+
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    async startGameMines(amount, countMines) {
+        try {
+            console.log(amount)
+            console.log(typeof amount, typeof this.balance)
+            if (Number(this.balance) < Number(amount) || Number(this.balance) <= 0) {
+                this.setError(true)
+                setTimeout(() => this.setError(false), 2900)
+            }
+            else {
                 try {
+                    console.log('ff')
                     const res = await MinesService.startGame(amount, countMines, this.id)
                     console.log(res)
                     
@@ -573,8 +674,12 @@ export default class Store {
         try {
           
             const res = await PromoService.activatePromo(promo, this.id);
-            this.setBalance(res.data.balance)
-            return res.data.info;
+            console.log(res)
+            if (res.data.balance) {
+                this.setBalance(res.data.balance.toFixed(2))
+            }
+            
+            return res.data;
         } 
         catch (error) {
             console.log(error)

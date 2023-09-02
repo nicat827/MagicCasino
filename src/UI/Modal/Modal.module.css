@@ -13,19 +13,49 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 6;
+    z-index: 999999;
     
     
 }
 
-.modalContent {
+.modalContentForMinesWin{
     padding: 25px;
-    background-image: url('../../icons/rapid-plum-aardvark.png');
     background-position: 72%;
     border-radius: 16px;
     min-width: 250px;
     display: flex;
     transition: 2s;
+    background-color: #443F3F;
     justify-content: center;
-    border: 2px solid white;
+    box-shadow: 1px 1px 11px 3px rgba(3,256,43,0.75) inset;
+-webkit-box-shadow: 1px 1px 11px 3px rgba(3,256,43,0.75) inset;
+-moz-box-shadow: 1px 1px 11px 3px rgba(3,256,43,0.75) inset;
+    
+}
+.modalContentForMinesLose{
+    padding: 25px;
+    background-position: 72%;
+    background-color: #443F3F;
+    border-radius: 16px;
+    min-width: 250px;
+    display: flex;
+    transition: 2s;
+    box-shadow: 1px 1px 11px 3px rgba(256,3,49,0.75) inset;
+-webkit-box-shadow: 1px 1px 11px 3px rgba(256,3,49,0.75) inset;
+-moz-box-shadow: 1px 1px 11px 3px rgba(256,3,49,0.75) inset;
+    justify-content: center;
+    
+}
+
+.modalContent {
+    padding: 25px;
+    background-image: url('../../icons/modal__back.png');
+    border: 2px solid black;
+    color: #fff;
+    background-position: 72%;
+    border-radius: 16px;
+    min-width: 250px;
+    display: flex;
+    justify-content: center;
+    
 }

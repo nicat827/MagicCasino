@@ -5,7 +5,7 @@ import Jackpot from "../pages/Jackpot"
 import Mines from "../pages/Mines"
 import NotFound from "../pages/NotFound"
 import Profile from "../pages/Profile"
-import Wheel from "../pages/Wheel"
+import Wheel from "../pages/wheel/Wheel"
 
 export const privateRoutes = [
     {path:'/profile', element:<Profile/>},
@@ -13,9 +13,6 @@ export const privateRoutes = [
     {path: '/wheel' , element: <Wheel/>},
     {path: '/mines', element: <Mines/>},
     {path: '/classic' , element: <Jackpot/> },
-    
-
-
 ]
 export const publicRoutes = [
     {path: '/wheel' , element: <Wheel/>},

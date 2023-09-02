@@ -3,6 +3,7 @@ const promoService = require("../service/promo-service");
 const ApiError = require('../exceptions/api-error');
 const {validationResult} = require('express-validator');
 const minesService = require("../service/mines-service");
+const jackpotService = require("../service/jackpot-service");
 
 class UserController {
     async registration(req, res, next) {
@@ -122,8 +123,7 @@ class UserController {
         }
     }
 
-
-    async minesGet(req,res,next) {
+    async minesGet( req, res, next ) {
         try {
             const {id} = req.body;
             const game = await minesService.get(id)
@@ -279,7 +279,36 @@ class UserController {
             next(e)
         }
     }
+    async checkGame(req,res,next) {
+        try {
+            const game = await jackpotService.getGame()
+            return res.json(game)
+        }
+        catch(e){
+            next(e)
+        }
+    }
+    async jackpotBet(req, res, next) {
+        try {
+            const {amount, id} = req.body;
+            const bet = await jackpotService.bet(amount, id)
+            return res.json(bet)
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 
+    async jackpotStart(req, res, next) {
+        try {
+            const {totalBets, idMassive} = req.body;
+            const startGame = await jackpotService.start(totalBets, idMassive)
+            console.log(startGame)
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 
     async getUserVk(req, res, next) {
         try {

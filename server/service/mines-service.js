@@ -7,21 +7,20 @@ const VkModel = require('../models/vk-model');
 const MinesModel = require('../models/mines-model');
 
 class MinesService {
-    async start(amount, countMines, id) {
-        console.log(id)
 
+    async start(amount, countMines, id) {
+        
         const user = await VkModel.findOne({id})
         const game = await MinesModel.findOne({id, status:'active'})
-        console.log(game)
         if (game) {
             throw ApiError.BadRequest('Игра уже началась!')
         }
         if (!user) {
             throw ApiError.BadRequest('Пользователь не существует!')
-        }
-        
+        } 
        
         let mines = []
+        
         while (countMines !== 0) {
             const randomNum = Math.floor(Math.random() * 26)
             if (!mines.includes(randomNum) && randomNum !== 0) {
@@ -29,15 +28,16 @@ class MinesService {
                 countMines -= 1
             }
         }
+        console.log(amount)
         const createGame = await MinesModel.create({id, mines, amount, click:[], status:"active", win: amount})
-        console.log(createGame)         
-        user.balance = user.balance - amount
+        user.balance = user.balance - Number(amount)
         await user.save();
         const returnValue = {
             balance: user.balance.toFixed(2),
             status: createGame.status,
             click: createGame.click,
-            amount: createGame.amount
+            amount: createGame.amount,
+            count: createGame.mines.length
         }
         return returnValue;
 
@@ -53,7 +53,8 @@ class MinesService {
                 click: game.click,
                 amount : game.amount,
                 status : game.status,
-                win : game.win
+                win : game.win,
+                count: game.mines.length
             
 
             }
@@ -63,12 +64,13 @@ class MinesService {
 
     async click(position, id) {
         const game = await MinesModel.findOne({id, status:'active'})
-        const user = await VkModel.findOne({id})
+        
         if (!game) {
             throw ApiError.BadRequest('Сессия не найдена!')
         }
 
         if (game.mines.includes(position) && !game.click.includes(position)) {
+            const user = await VkModel.findOne({id})
             game.status = 'lose';
             game.win = 0
             game.click.push(position)
@@ -123,13 +125,13 @@ class MinesService {
         if (win > 0) {
             game.status = 'win'
             game.win = win
-            user.balance+= win
+            user.balance = user.balance + win
             user.mines.push({id:game._id, amount:game.amount, status:game.status, win: game.win})
         
             await user.save()
             await game.save()
             const returnValue = {
-                balance : user.balance.toFixed(2),
+                balance : (Number(user.balance.toFixed(2))),
                 game
             } 
             return returnValue;

@@ -35,7 +35,7 @@ class UserService {
     async registrateVk(id, href, name, surname, expire, photo, isAdmin, balance) {
 
         const candidate = await VkModel.findOne({id})
-        console.log(id, '38')
+        
 
         
         if (candidate) {
@@ -46,6 +46,9 @@ class UserService {
         }
         else {
             const vkUser = await VkModel.create({id, href, name, surname, expire, photo, promoKd:false, lastActivatedPromoTime:0, isAdmin, balance, lastMessages:[], mines:[]})
+           
+            
+            
             const vkDto = new VkDto(vkUser);
             return {vkUser: vkDto}
         }
@@ -209,7 +212,7 @@ class UserService {
             const checkOnBan = await BanModel.findOne({id})
             if (checkOnBan) {
                 if (!checkOnBan.banKd) {
-                    throw ApiError.BadRequest('Вы забанены навсегда!')
+                    return  {message:'Вы были заблокированны навсегда!', id}
                 }
 
             }
@@ -231,22 +234,22 @@ class UserService {
                 return {mess: messageDto}
             }
             else if (!checkOnBan ||  checkOnBan.banKd > Date.now() && checkOnBan.type===900000) {
-                throw ApiError.BadRequest('Вы были заблокированны на 15 минут!')
+                return {message:'Вы были заблокированны на 15 минут!', id}
             }
             else if (!checkOnBan ||  checkOnBan.banKd > Date.now() && checkOnBan.type===1800000) {
-                throw ApiError.BadRequest('Вы были заблокированны на 30 минут!')
+                return {message:'Вы были заблокированны на 30 минут!', id}
             }
             else if (!checkOnBan ||  checkOnBan.banKd > Date.now() && checkOnBan.type===1800000*2) {
-                throw ApiError.BadRequest('Вы были заблокированны на 1 час!')
+                return {message:'Вы были заблокированны на 1 час!', id}
             }
             else if (!checkOnBan ||  checkOnBan.banKd > Date.now() && checkOnBan.type===1800000*2*3) {
-                throw ApiError.BadRequest('Вы были заблокированны на 3 часа!')
+                return {message:'Вы были заблокированны на 3 часа!', id}
             }
             else if (!checkOnBan ||  checkOnBan.banKd > Date.now() && checkOnBan.type===1800000*2*3*4) {
-                throw ApiError.BadRequest('Вы были заблокированны на 12 часов!')
+                return {message:'Вы были заблокированны на 12 часов!', id}
             }
             else if (!checkOnBan ||  checkOnBan.banKd > Date.now() && checkOnBan.type===1800000*2*3*4*2) {
-                throw ApiError.BadRequest('Вы были заблокированны на сутки!')
+                return {message:'Вы были заблокированны на сутки!', id}
             }
             
             

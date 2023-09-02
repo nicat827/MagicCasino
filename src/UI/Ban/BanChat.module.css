@@ -1,18 +1,19 @@
 .ban__div {
     background-color: red;
     color: white;
-    width: 250px;
-    border: 2px solid white;
+    width: 250px; 
     height: 50px;
     animation-name: banDiv;
-    right: 630px;
+    left: -130px;
+    top: 100px;
+    font-weight: 800;
     padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
     font-size: 16px;
     border-radius: 10px;
-    position: relative;
-    top: 100px;
+    position: absolute;
+    z-index: 9999;
     animation-duration: 3s;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;

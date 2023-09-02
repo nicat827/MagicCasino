@@ -5,54 +5,95 @@ import Span from '../../UI/span/Span';
 import clSpan from '../../UI/span/Span.module.css';
 import clChat from './Chat.module.css';
 import {observer} from "mobx-react-lite";
+import socket from '../../socket';
 
 const ChatItem = ({messages, firstBan, secondBan, oneHourBan, threeHourBan, halfDayBan, dayBan, foreverBan, message, setMessage, inputRef}) => {
 
     const {store} = useContext(Context);
     
     
+    
     const {banned, muteDiv, setMuteDiv, setSecondMuteDiv, setHalfDayMuteDiv, setDayMuteDiv, setOneHourMuteDiv, setThreeHourMuteDiv,  setBanChat} = useContext(AuthContext)
-    const banUser = async (id,time) => {
-
-        const res = await store.banUser(id, time)
-        if (res.ban) {
-            if (time===0) {
-                setBanChat(true)
-                setTimeout(() => setBanChat(false), 2900)
+    
+ 
+  
+    useEffect(() => {
+        socket.on("infoBan", (data) => {
+            console.log(data)
+            if (data.mute == 'success') {
+                store.setMuteInfoWindowForAdmin(true)
+                setTimeout(() => store.setMuteInfoWindowForAdmin(false), 2900)
             }
-            if (time === 900000) {
+        })
+        
+        socket.on("muted", (data) => {
+            
+            
+            if (Number(data.type) === 900000) {
                 setMuteDiv(true)
-                setTimeout(() => setMuteDiv(false), 2900)
+                setTimeout(() => {
+                    setMuteDiv(false)
+                    
+                }, 2900)
             }
-            if (time === 1800000) {
+            if (Number(data.type) === 900000*2) {
                 setSecondMuteDiv(true)
-                setTimeout(() => setSecondMuteDiv(false), 2900)
+                setTimeout(() => {
+                    setSecondMuteDiv(false)
+                   
+                }
+                , 2900)
             }
-            if (time === 3600000) {
-                console.log(time)
+            if (Number(data.type) === 900000*2*2) {
                 setOneHourMuteDiv(true)
-                setTimeout(() => setOneHourMuteDiv(false), 2900)
+                setTimeout(() => {
+                    setOneHourMuteDiv(false)
+                    
+                }, 2900)
             }
-            if (time === 1800000*2*3) {
+            if (Number(data.type) === 1800000*2*3) {
                 setThreeHourMuteDiv(true)
-                setTimeout(() => setThreeHourMuteDiv(false), 2900)
+                setTimeout(() => {
+                    setThreeHourMuteDiv(false)
+                   
+                }, 2900)
             }
-            if (time === 1800000*2*3*4) {
+            if (Number(data.type) === 1800000*2*3*4) {
                 setHalfDayMuteDiv(true)
-                setTimeout(() => setHalfDayMuteDiv(false), 2900)
+                setTimeout(() => {
+                    setHalfDayMuteDiv(false)
+                    
+                }, 2900)
             }
-            if (time === 1800000*2*3*4*2) {
+            if (Number(data.type) === 1800000*2*3*4*2) {
                 setDayMuteDiv(true)
-                setTimeout(() => setDayMuteDiv(false), 2900)
+                setTimeout(() => {
+                    setDayMuteDiv(false)
+                    
+                }, 2900)
             }
+            
+            if (Number(data.type) === 0) {
+                setBanChat(true)
+                setTimeout(() => {
+                    setBanChat(false)
+                    
+                }, 2900)
+                
+            }
+        })
+        return () => {
+            socket.off('muted')
+            socket.off('infoBan')
         }
-
         
 
-        store.getMessage();
+    }, [])
+
+    const banUser = async (id,time) => {
+        socket.emit("banUser", ({userId:id, moderName:store.user.name, moderId:store.id, time}))       
     }
-  
-    
+
     return (
         <>
         {messages.map((obj) => {
