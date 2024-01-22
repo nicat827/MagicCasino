@@ -1,5 +1,5 @@
 {
-  "name": "react-cource",
+  "name": "magic-V827",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,11 +21,12 @@
     "mongodb": "^4.12.0",
     "mongoose": "^6.7.3",
     "netstat": "^0.0.2",
+    "node-cron": "^3.0.2",
     "nodemailer": "^6.7.8",
     "payok": "^1.0.4",
     "prisma": "^4.11.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
@@ -42,7 +43,7 @@
   },
   "scripts": {
     "dev": "concurrently \"nodemon server/index.js\" \"npm start\"",
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -67,7 +68,7 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^7.3.0",
+    "concurrently": "^7.6.0",
     "json-server": "^0.17.0",
     "json-server-auth": "^2.1.0",
     "nodemon": "^2.0.19"
